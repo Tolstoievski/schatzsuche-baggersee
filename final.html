@@ -41,10 +41,12 @@ body{
   font-weight:bold;
   border:none;
   cursor:pointer;
+  transition:0.2s ease;
 }
 
 .button:hover{
   background:#005fa3;
+  transform:translateY(-2px);
 }
 
 .donation-box{
@@ -52,6 +54,23 @@ body{
   padding:20px;
   background:#fff8e1;
   border-radius:15px;
+}
+
+/* TITLU DONAȚIE RESPONSIVE */
+.donation-title{
+  font-size:22px;
+  line-height:1.3;
+  margin-bottom:10px;
+}
+
+.break{
+  display:block;
+}
+
+@media (min-width:600px){
+  .break{
+    display:inline;
+  }
 }
 
 input[type="text"],
@@ -65,9 +84,10 @@ input[type="email"]{
   font-size:15px;
 }
 
-/* CHECKBOX PREMIUM */
+/* CHECKBOX PREMIUM ALINIAT */
 .checkbox{
-  margin-top:20px;
+  margin:20px auto 0 auto;
+  max-width:420px;
   text-align:left;
 }
 
@@ -140,14 +160,16 @@ Ihr habt alle Prüfungen bestanden und seid nun offizielle
 
 <div class="donation-box">
 
-<h3>☕ Neue Abenteuer ermöglichen</h3>
+<h3 class="donation-title">
+  ☕ Neue Abenteuer <span class="break">ermöglichen</span>
+</h3>
 
 <p>
 Wenn euch das Erlebnis gefallen hat, freuen wir uns über eine kleine Unterstützung von <strong>3–5 €</strong>.
 </p>
 
 <a class="button" href="https://paypal.me/DEINLINK" target="_blank">
-☕ Jetzt unterstützen
+  ☕ Jetzt unterstützen
 </a>
 
 </div>
@@ -198,7 +220,7 @@ document.getElementById("certificateForm")
   const email = document.getElementById("email").value;
   const consent = document.querySelector('input[name="consent"]').checked;
 
-  await fetch("https://formspree.io/f/DEINFORMCODE", {
+  await fetch("https://formspree.io/f/mojnojer", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
