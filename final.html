@@ -132,11 +132,16 @@ Gebt den Namen des Kindes ein und wir senden euch die Urkunde als PDF per E-Mail
 
 <form action="https://formspree.io/f/mojnojer"
       method="POST"
-      onsubmit="return redirectWithName();">
+      onsubmit="prepareRedirect()">
 
-  <input type="text" name="childname" placeholder="Name des Kindes" required><br>
+  <input type="text" name="childname" id="childname"
+         placeholder="Name des Kindes" required><br>
 
-  <input type="email" name="email" placeholder="E-Mail-Adresse der Eltern" required>
+  <input type="email" name="email"
+         placeholder="E-Mail-Adresse der Eltern" required>
+
+  <!-- Redirect Feld -->
+  <input type="hidden" name="_redirect" id="redirectField">
 
   <div class="checkbox">
     <label>
@@ -158,15 +163,14 @@ Weitere Informationen findet ihr in unserer Datenschutzerklärung.
 </div>
 
 <script>
-function redirectWithName() {
-  const name = document.querySelector('input[name="childname"]').value;
+function prepareRedirect(){
+  const name = document.getElementById("childname").value;
 
-  // mic delay pentru a permite trimiterea formularului la Formspree
-  setTimeout(function(){
-    window.location.href = "urkunde-generator.html?name=" + encodeURIComponent(name);
-  }, 600);
+  const redirectUrl =
+    "https://tolstoievski.github.io/schatzsuche-baggersee/urkunde-generator.html?name="
+    + encodeURIComponent(name);
 
-  return true;
+  document.getElementById("redirectField").value = redirectUrl;
 }
 </script>
 
