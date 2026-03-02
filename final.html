@@ -196,15 +196,17 @@ document.getElementById("certificateForm")
 
   const name = document.getElementById("childname").value;
   const email = document.getElementById("email").value;
+  const consent = document.querySelector('input[name="consent"]').checked;
 
-  await fetch("https://formspree.io/f/mojnojer", {
+  await fetch("https://formspree.io/f/DEINFORMCODE", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
       childname: name,
-      email: email
+      email: email,
+      consent: consent ? "yes" : "no"
     })
   });
 
