@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Station 3 – Die flüsternden Bäume</title>
+<style>
+body{margin:0;font-family:'Trebuchet MS',Arial;background:linear-gradient(135deg,#a1ffce,#faffd1);text-align:center;}
+.header{padding:25px;color:#333;font-size:22px;font-weight:bold;}
+.card{background:white;margin:20px auto;padding:25px;border-radius:20px;max-width:500px;box-shadow:0 10px 25px rgba(0,0,0,0.2);}
+button{padding:12px 22px;font-size:16px;border:none;border-radius:10px;background:#ffb703;margin-top:15px;}
+button:hover{background:#faa307;}
+input{padding:10px;border-radius:8px;border:1px solid #ccc;margin-top:10px;}
+.hidden{display:none;}
+.success{color:green;font-weight:bold;}
+.error{color:red;}
+</style>
+</head>
+<body>
+
+<div class="header">🏴‍☠️ Der Schatz des Seehüters – Station 3</div>
+
+<div class="card">
+
+<h2>Die flüsternden Bäume</h2>
+
+<p>„Folge den Bäumen, dort wartet die nächste Aufgabe.“</p>
+
+<button onclick="checkLocation()">📍 Standort prüfen</button>
+<p id="gpsResult"></p>
+
+<div id="questionBox" class="hidden">
+<p><strong>Aufgabe:</strong> Welches Tier ist auf der Tafel zu sehen?</p>
+<input type="text" id="answer" placeholder="Tier eingeben">
+<br>
+<button onclick="checkAnswer()">Antwort prüfen</button>
+</div>
+
+<div id="nextClue" class="hidden success">
+<p>🎉 Klasse gemacht!</p>
+<a href="punkt4.html"><button>➡ Weiter zu Station 4</button></a>
+</div>
+
+</div>
+
+<script>
+const targetLat=48.7670;
+const targetLon=11.4275;
+const radius=35;
+
+function getDistance(lat1,lon1,lat2,lon2){
+const R=6371000;
+const dLat=(lat2-lat1)*Math.PI/180;
+const dLon=(lon2-lon1)*Math.PI/180;
+const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+const c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+return R*c;
+}
+
+function checkLocation(){
+navigator.geolocation.getCurrentPosition(function(pos){
+const distance=getDistance(pos.coords.latitude,pos.coords.longitude,targetLat,targetLon);
+if(distance<=radius){
+document.getElementById("gpsResult").innerHTML="<span class='success'>Perfekt!</span>";
+document.getElementById("questionBox").classList.remove("hidden");
+}else{
+document.getElementById("gpsResult").innerHTML="<span class='error'>Noch nicht richtig.</span>";
+}
+});
+}
+
+function checkAnswer(){
+if(document.getElementById("answer").value.trim().toLowerCase()==="ente"){
+document.getElementById("nextClue").classList.remove("hidden");
+}else alert("Leider falsch.");
+}
+</script>
+
+</body>
+</html>
