@@ -36,7 +36,6 @@ body{
   padding:14px 26px;
   background:#0077cc;
   color:white;
-  text-decoration:none;
   border-radius:12px;
   font-size:16px;
   font-weight:bold;
@@ -94,10 +93,6 @@ Ihr habt alle Prüfungen bestanden und seid nun offizielle
 <strong>Beschützer des Sees</strong>.
 </p>
 
-<p>
-Wir hoffen, ihr hattet ein unvergessliches Abenteuer!
-</p>
-
 <hr>
 
 <div class="donation-box">
@@ -108,17 +103,9 @@ Wir hoffen, ihr hattet ein unvergessliches Abenteuer!
 Wenn euch das Erlebnis gefallen hat, freuen wir uns über eine kleine Unterstützung von <strong>3–5 €</strong>.
 </p>
 
-<p>
-Mit eurer Hilfe entstehen neue Rätsel, Bonus-Aufgaben und weitere Abenteuer am See.
-</p>
-
 <a class="button" href="https://paypal.me/DEINLINK" target="_blank">
 ☕ Jetzt unterstützen
 </a>
-
-<p class="small">
-Als Dankeschön erhalten Unterstützer zusätzlich eine Bonus-Aufgabe.
-</p>
 
 </div>
 
@@ -127,21 +114,16 @@ Als Dankeschön erhalten Unterstützer zusätzlich eine Bonus-Aufgabe.
 <h3>🎓 Personalisierte Abenteuer-Urkunde</h3>
 
 <p>
-Gebt den Namen des Kindes ein und wir senden euch die Urkunde als PDF per E-Mail.
+Gebt den Namen des Kindes ein und wir senden euch die Urkunde per E-Mail.
 </p>
 
-<form action="https://formspree.io/f/mojnojer"
-      method="POST"
-      onsubmit="prepareRedirect()">
+<form id="certificateForm">
 
   <input type="text" name="childname" id="childname"
          placeholder="Name des Kindes" required><br>
 
-  <input type="email" name="email"
+  <input type="email" name="email" id="email"
          placeholder="E-Mail-Adresse der Eltern" required>
-
-  <!-- Redirect Feld -->
-  <input type="hidden" name="_redirect" id="redirectField">
 
   <div class="checkbox">
     <label>
@@ -157,21 +139,38 @@ Gebt den Namen des Kindes ein und wir senden euch die Urkunde als PDF per E-Mail
 
 <p class="small">
 Die Daten werden ausschließlich zur Zusendung der Urkunde verwendet.
-Weitere Informationen findet ihr in unserer Datenschutzerklärung.
 </p>
 
 </div>
 
 <script>
-function prepareRedirect(){
-  const name = document.getElementById("childname").value;
 
-  const redirectUrl =
+document.getElementById("certificateForm")
+.addEventListener("submit", async function(e){
+
+  e.preventDefault(); // oprește redirectul normal
+
+  const name = document.getElementById("childname").value;
+  const email = document.getElementById("email").value;
+
+  // trimite datele la Formspree în background
+  await fetch("https://formspree.io/f/mojnojer", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      childname: name,
+      email: email
+    })
+  });
+
+  // redirecționează manual la diplomă
+  window.location.href =
     "https://tolstoievski.github.io/schatzsuche-baggersee/urkunde-generator.html?name="
     + encodeURIComponent(name);
+});
 
-  document.getElementById("redirectField").value = redirectUrl;
-}
 </script>
 
 </body>
