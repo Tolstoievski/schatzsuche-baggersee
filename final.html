@@ -54,23 +54,66 @@ body{
   border-radius:15px;
 }
 
-input{
+input[type="text"],
+input[type="email"]{
   padding:12px;
   width:85%;
   max-width:420px;
   border-radius:8px;
   border:1px solid #ccc;
   margin-top:10px;
+  font-size:15px;
 }
 
+/* CHECKBOX PREMIUM */
 .checkbox{
-  margin-top:15px;
+  margin-top:20px;
+  text-align:left;
+}
+
+.checkbox-label{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
   font-size:14px;
+  cursor:pointer;
+  line-height:1.5;
+}
+
+.checkbox-label input{
+  appearance:none;
+  width:20px;
+  height:20px;
+  border:2px solid #0077cc;
+  border-radius:5px;
+  position:relative;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  margin-top:3px;
+}
+
+.checkbox-label input:hover{
+  background:#e6f2ff;
+}
+
+.checkbox-label input:checked{
+  background:#0077cc;
+  border-color:#0077cc;
+}
+
+.checkbox-label input:checked::after{
+  content:"✔";
+  position:absolute;
+  color:white;
+  font-size:14px;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -60%);
 }
 
 .small{
   font-size:14px;
-  margin-top:10px;
+  margin-top:15px;
   color:#666;
 }
 
@@ -126,9 +169,11 @@ Gebt den Namen des Kindes ein und wir senden euch die Urkunde per E-Mail.
          placeholder="E-Mail-Adresse der Eltern" required>
 
   <div class="checkbox">
-    <label>
+    <label class="checkbox-label">
       <input type="checkbox" name="consent" required>
-      Ich stimme der Verarbeitung der Daten zur Zusendung der Urkunde zu.
+      <span>
+        Ich stimme der Verarbeitung der Daten zur Zusendung der Urkunde zu.
+      </span>
     </label>
   </div>
 
@@ -144,16 +189,14 @@ Die Daten werden ausschließlich zur Zusendung der Urkunde verwendet.
 </div>
 
 <script>
-
 document.getElementById("certificateForm")
 .addEventListener("submit", async function(e){
 
-  e.preventDefault(); // oprește redirectul normal
+  e.preventDefault();
 
   const name = document.getElementById("childname").value;
   const email = document.getElementById("email").value;
 
-  // trimite datele la Formspree în background
   await fetch("https://formspree.io/f/mojnojer", {
     method: "POST",
     headers: {
@@ -165,12 +208,10 @@ document.getElementById("certificateForm")
     })
   });
 
-  // redirecționează manual la diplomă
   window.location.href =
     "https://tolstoievski.github.io/schatzsuche-baggersee/urkunde-generator.html?name="
     + encodeURIComponent(name);
 });
-
 </script>
 
 </body>
