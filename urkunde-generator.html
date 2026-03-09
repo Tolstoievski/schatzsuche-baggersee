@@ -10,36 +10,23 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
 <style>
+
+/* PAGE */
 
 body{
 margin:0;
 font-family:Georgia,serif;
 text-align:center;
-
-background-image:url("pirate-adventure.jpg");
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
-}
-
-/* PAGE OVERLAY */
-
-.page-overlay{
-background:rgba(255,255,255,0.55);
-min-height:100vh;
-padding-top:80px;
-padding-bottom:40px;
+background:#2f1b0c;
 }
 
 /* FORM */
 
 .form-box{
 
-max-width:400px;
-margin:auto;
+max-width:420px;
+margin:80px auto;
 
 background:white;
 
@@ -47,7 +34,7 @@ padding:30px;
 
 border-radius:12px;
 
-box-shadow:0 8px 20px rgba(0,0,0,0.2);
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
 
 }
 
@@ -55,16 +42,19 @@ input{
 
 padding:12px;
 font-size:18px;
+
 border-radius:8px;
 border:1px solid #ccc;
+
 margin:10px;
+
 width:85%;
 
 }
 
 button{
 
-padding:14px 22px;
+padding:14px 24px;
 
 font-size:16px;
 
@@ -82,14 +72,14 @@ cursor:pointer;
 
 .certificate{
 
-width:297mm;
-height:210mm;
+width:1120px;
+height:790px;
 
 margin:40px auto;
 
 position:relative;
 
-padding:35mm;
+padding:120px;
 
 box-sizing:border-box;
 
@@ -133,7 +123,7 @@ z-index:2;
 
 font-family:'Pirata One',cursive;
 
-font-size:76px;
+font-size:72px;
 
 color:#080402;
 
@@ -157,7 +147,7 @@ color:#140903;
 
 .name{
 
-font-size:66px;
+font-size:64px;
 
 font-weight:bold;
 
@@ -171,7 +161,7 @@ color:#050202;
 
 .text{
 
-font-size:28px;
+font-size:26px;
 
 line-height:1.8;
 
@@ -185,7 +175,7 @@ color:#140903;
 
 margin-top:40px;
 
-font-size:26px;
+font-size:24px;
 
 color:#140903;
 
@@ -197,16 +187,19 @@ color:#140903;
 
 position:absolute;
 
-bottom:15px;
-right:40px;
+bottom:10px;
+right:15px;
 
-width:180px;
-
-z-index:4;
+width:170px;
 
 animation:spin 40s linear infinite;
 
-filter:drop-shadow(0 8px 12px rgba(0,0,0,0.7));
+}
+
+@keyframes spin{
+
+0%{transform:rotate(0deg)}
+100%{transform:rotate(360deg)}
 
 }
 
@@ -216,16 +209,12 @@ filter:drop-shadow(0 8px 12px rgba(0,0,0,0.7));
 
 position:absolute;
 
-bottom:25px;
+bottom:35px;
 left:60px;
 
-width:300px;
-
-z-index:3;
+width:220px;
 
 transform:rotate(-10deg);
-
-filter:drop-shadow(0 8px 14px rgba(0,0,0,0.7));
 
 }
 
@@ -238,26 +227,17 @@ position:absolute;
 top:25px;
 left:40px;
 
-font-size:22px;
+font-size:20px;
 
 font-weight:bold;
 
 color:#050202;
 
-z-index:5;
-
 }
 
-@keyframes spin{
+/* PRINT BUTTON */
 
-0%{transform:rotate(0deg)}
-100%{transform:rotate(360deg)}
-
-}
-
-/* DOWNLOAD BUTTON */
-
-.download-button{
+.print-button{
 
 display:none;
 
@@ -282,23 +262,91 @@ box-shadow:0 6px 14px rgba(0,0,0,0.3);
 
 }
 
+/* MOBILE VIEW */
+
+@media (max-width:900px){
+
+.certificate{
+
+width:95vw;
+height:auto;
+
+padding:40px 20px;
+
+}
+
+.title{
+font-size:42px;
+}
+
+.subtitle{
+font-size:22px;
+}
+
+.name{
+font-size:36px;
+}
+
+.text{
+font-size:18px;
+}
+
+.footer{
+font-size:18px;
+}
+
+.compass{
+width:90px;
+bottom:5px;
+right:5px;
+}
+
+.seal{
+width:120px;
+left:10px;
+bottom:10px;
+}
+
+}
+
+/* PRINT MODE */
+
+@media print{
+
+body{
+background:white;
+}
+
+.form-box{
+display:none;
+}
+
+.print-button{
+display:none;
+}
+
+.certificate{
+
+margin:0;
+box-shadow:none;
+
+}
+
+}
+
 </style>
 
 </head>
 
 <body>
 
-<div class="page-overlay">
-
 <div class="form-box" id="formBox">
 
 <h2>🏴‍☠️ Eure Ehrenurkunde</h2>
 
 <p>
-
 Gebt den Namen des Kindes ein,  
 um eure persönliche Urkunde zu erhalten.
-
 </p>
 
 <form id="certificateForm">
@@ -326,7 +374,6 @@ Urkunde erstellen
 <div class="certificate-number" id="certNumber"></div>
 
 <img src="compass.png" class="compass">
-
 <img src="sigiliu.png" class="seal">
 
 <div class="content">
@@ -366,13 +413,13 @@ Im Namen des Seehüters
 
 </div>
 
-<button id="downloadBtn" class="download-button" onclick="downloadPDF()">
-PDF herunterladen
+<button class="print-button" id="printBtn" onclick="printCertificate()">
+📄 Urkunde als PDF speichern
 </button>
 
-</div>
-
 <script>
+
+/* DATE */
 
 const today=new Date();
 
@@ -392,7 +439,6 @@ counter=parseInt(counter)+1;
 localStorage.setItem("certificateCounter",counter);
 
 const year=today.getFullYear();
-
 const padded=String(counter).padStart(3,'0');
 
 document.getElementById("certNumber").innerText=
@@ -408,7 +454,7 @@ e.preventDefault();
 const name=document.getElementById("childname").value;
 const email=document.getElementById("email").value;
 
-/* SEND EMAIL TO FORMSPREE */
+/* SEND EMAIL */
 
 await fetch("https://formspree.io/f/mojnojer",{
 
@@ -425,41 +471,28 @@ email:email
 
 });
 
-/* HIDE FORM */
+/* SHOW CERTIFICATE */
 
 document.getElementById("formBox").style.display="none";
-
-/* SHOW CERTIFICATE */
 
 document.getElementById("childName").innerText=name;
 
 document.getElementById("certificate").style.display="block";
 
-/* SHOW DOWNLOAD BUTTON */
-
-document.getElementById("downloadBtn").style.display="block";
+document.getElementById("printBtn").style.display="block";
 
 });
 
-/* PDF DOWNLOAD */
+/* PRINT */
 
-function downloadPDF(){
+function printCertificate(){
 
-const element=document.getElementById("certificate");
-
-const opt={
-margin:0,
-filename:'Ehrenurkunde_'+document.getElementById("childName").innerText+'.pdf',
-image:{type:'jpeg',quality:1},
-html2canvas:{scale:2},
-jsPDF:{unit:'mm',format:'a4',orientation:'landscape'}
-};
-
-html2pdf().set(opt).from(element).save();
+window.print();
 
 }
 
 </script>
 
 </body>
+
 </html>
