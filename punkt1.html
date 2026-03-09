@@ -1,119 +1,88 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Station 1 – Das Tor zum Abenteuer</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: 'Trebuchet MS', Arial, sans-serif;
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
-  text-align: center;
-  color: #333;
-}
+<title>Station 1</title>
 
-.header {
-  padding: 25px 15px;
-  font-size: 22px;
-  font-weight: bold;
-  color: white;
-}
+<link rel="stylesheet" href="style.css">
 
-.card {
-  background: white;
-  margin: 20px auto;
-  padding: 25px;
-  border-radius: 20px;
-  max-width: 500px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-button {
-  padding: 12px 22px;
-  font-size: 16px;
-  border: none;
-  border-radius: 10px;
-  background: #ffb703;
-  cursor: pointer;
-  margin-top: 15px;
-}
-
-button:hover { background: #faa307; }
-
-input {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-top: 10px;
-}
-
-.hidden { display: none; }
-.success { color: green; font-weight: bold; }
-.error { color: red; }
-</style>
 </head>
 
 <body>
 
-<div class="header">🏴‍☠️ Der Schatz des Seehüters – Station 1</div>
+<div class="overlay">
+
+<div class="header">Station 1</div>
+
+<div class="progress">
+<div class="progress-bar" style="width:25%"></div>
+</div>
 
 <div class="card">
 
-<h2>Das Tor zum Abenteuer</h2>
+<p class="story">
 
-<p>„Finde den Ort, an dem die Menschen ihre Reise um den See beginnen.“</p>
+Die Karte zeigt einen Ort,
+an dem alle Besucher ihre Reise beginnen.
 
-<button onclick="checkLocation()">📍 Standort prüfen</button>
+Findet diesen Ort!
+
+</p>
+
+<button onclick="checkLocation(48.7652,11.4257,35)">
+Standort prüfen
+</button>
+
 <p id="gpsResult"></p>
 
 <div id="questionBox" class="hidden">
-<p><strong>Aufgabe:</strong> Wie viele Bänke stehen neben der Infotafel?</p>
-<input type="text" id="answer" placeholder="Zahl eingeben">
+
+<p><b>Wie viele Bänke stehen neben der Infotafel?</b></p>
+
+<input id="answer">
+
 <br>
+
 <button onclick="checkAnswer()">Antwort prüfen</button>
+
 </div>
 
 <div id="nextClue" class="hidden success">
-<p>🎉 Großartig!</p>
-<a href="punkt2.html"><button>➡ Weiter zu Station 2</button></a>
+
+Super!
+
+<a href="punkt2.html">
+<button>Weiter</button>
+</a>
+
 </div>
 
 </div>
+
+</div>
+
+<script src="game.js"></script>
 
 <script>
-const targetLat = 48.7652;
-const targetLon = 11.4257;
-const radius = 35;
-
-function getDistance(lat1, lon1, lat2, lon2){
-  const R=6371000;
-  const dLat=(lat2-lat1)*Math.PI/180;
-  const dLon=(lon2-lon1)*Math.PI/180;
-  const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
-  const c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-  return R*c;
-}
-
-function checkLocation(){
-  navigator.geolocation.getCurrentPosition(function(pos){
-    const distance=getDistance(pos.coords.latitude,pos.coords.longitude,targetLat,targetLon);
-    if(distance<=radius){
-      document.getElementById("gpsResult").innerHTML="<span class='success'>Du bist am richtigen Ort!</span>";
-      document.getElementById("questionBox").classList.remove("hidden");
-    } else {
-      document.getElementById("gpsResult").innerHTML="<span class='error'>Noch nicht ganz richtig.</span>";
-    }
-  });
-}
 
 function checkAnswer(){
-  if(document.getElementById("answer").value.trim()==="3"){
-    document.getElementById("nextClue").classList.remove("hidden");
-  } else alert("Leider falsch – versuche es erneut!");
+
+if(document.getElementById("answer").value.trim()=="3"){
+
+document.getElementById("nextClue").classList.remove("hidden");
+
+}else{
+
+alert("Leider falsch");
+
 }
+
+}
+
 </script>
 
 </body>

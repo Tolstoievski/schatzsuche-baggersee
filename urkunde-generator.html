@@ -1,259 +1,464 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
+
 <meta charset="UTF-8">
-<title>Geheime Ehrenurkunde</title>
+<meta name="viewport" content="width=device-width">
+
+<title>Ehrenurkunde</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
 
-<!-- Biblioteca pentru generare PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
-@page {
-  size: A4 landscape;
-  margin: 0;
-}
 
 body{
-  margin:0;
-  background:#2f1b0c;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-family:'Georgia', serif;
+margin:0;
+font-family:Georgia,serif;
+text-align:center;
+
+background-image:url("pirate-adventure.jpg");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
 }
 
-/* CERTIFICAT */
+/* PAGE OVERLAY */
+
+.page-overlay{
+background:rgba(255,255,255,0.55);
+min-height:100vh;
+padding-top:80px;
+padding-bottom:40px;
+}
+
+/* FORM */
+
+.form-box{
+
+max-width:400px;
+margin:auto;
+
+background:white;
+
+padding:30px;
+
+border-radius:12px;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+
+}
+
+input{
+
+padding:12px;
+font-size:18px;
+border-radius:8px;
+border:1px solid #ccc;
+margin:10px;
+width:85%;
+
+}
+
+button{
+
+padding:14px 22px;
+
+font-size:16px;
+
+border:none;
+
+border-radius:10px;
+
+background:#ffb703;
+
+cursor:pointer;
+
+}
+
+/* CERTIFICATE */
+
 .certificate{
-  width:297mm;
-  height:210mm;
-  position:relative;
-  box-sizing:border-box;
-  padding:35mm;
-  background:linear-gradient(#f7e6b5,#e6c98a);
-  overflow:hidden;
-  border:20px solid #5c3b1e;
+
+width:297mm;
+height:210mm;
+
+margin:40px auto;
+
+position:relative;
+
+padding:35mm;
+
+box-sizing:border-box;
+
+background-image:url("pirate-adventure.jpg");
+background-size:cover;
+background-position:center;
+
+border:18px solid #caa64b;
+
+box-shadow:
+0 0 0 6px #e8d28a,
+0 0 35px rgba(0,0,0,0.6);
+
+display:none;
+
 }
 
-/* Margini arse */
-.certificate::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(0,0,0,0.7), transparent 35%),
-    radial-gradient(circle at 100% 0%, rgba(0,0,0,0.7), transparent 35%),
-    radial-gradient(circle at 0% 100%, rgba(0,0,0,0.7), transparent 35%),
-    radial-gradient(circle at 100% 100%, rgba(0,0,0,0.7), transparent 35%);
-  pointer-events:none;
+/* PERGAMENT */
+
+.overlay{
+
+position:absolute;
+inset:0;
+
+background:rgba(247,230,181,0.6);
+
 }
 
-/* TITLU CLAR */
+/* CONTENT */
+
+.content{
+
+position:relative;
+z-index:2;
+
+}
+
+/* TITLE */
+
 .title{
-  font-family:'Pirata One', cursive;
-  text-align:center;
-  font-size:66px;
-  color:#5a3e1b;
-  text-shadow:2px 2px 4px rgba(0,0,0,0.25);
-  letter-spacing:2px;
+
+font-family:'Pirata One',cursive;
+
+font-size:76px;
+
+color:#080402;
+
+margin-bottom:10px;
+
 }
+
+/* SUBTITLE */
 
 .subtitle{
-  text-align:center;
-  font-size:30px;
-  margin-bottom:30px;
+
+font-size:34px;
+
+margin-bottom:30px;
+
+color:#140903;
+
 }
+
+/* NAME */
 
 .name{
-  text-align:center;
-  font-size:56px;
-  font-weight:bold;
-  margin:30px 0;
-  color:#2f1b0c;
+
+font-size:66px;
+
+font-weight:bold;
+
+margin:30px 0;
+
+color:#050202;
+
 }
+
+/* TEXT */
 
 .text{
-  text-align:center;
-  font-size:22px;
-  line-height:1.8;
+
+font-size:28px;
+
+line-height:1.8;
+
+color:#140903;
+
 }
+
+/* FOOTER */
 
 .footer{
-  text-align:center;
-  margin-top:40px;
-  font-size:20px;
+
+margin-top:40px;
+
+font-size:26px;
+
+color:#140903;
+
 }
 
-/* SIGILIU ROTUND CU ZIMȚI */
-.seal{
-  position:absolute;
-  bottom:40px;
-  left:70px;
-  width:180px;
-  height:180px;
-  background:radial-gradient(circle at 30% 30%, #d93a3a, #8b0000);
-  border-radius:50%;
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  font-weight:bold;
-  font-size:18px;
-  box-shadow:0 0 40px rgba(0,0,0,0.7);
-  transform:rotate(-10deg);
-}
+/* BUSOLA */
 
-.seal::before{
-  content:"";
-  position:absolute;
-  inset:-15px;
-  background:
-    repeating-conic-gradient(
-      #8b0000 0deg 6deg,
-      #b22222 6deg 12deg
-    );
-  border-radius:50%;
-  z-index:-1;
-}
-
-.seal::after{
-  content:"";
-  position:absolute;
-  width:120px;
-  height:120px;
-  background:radial-gradient(circle at 40% 40%, rgba(255,255,255,0.4), transparent 60%);
-  border-radius:50%;
-}
-
-/* BUSOLĂ */
 .compass{
-  position:absolute;
-  top:30px;
-  right:60px;
-  width:170px;
-  opacity:0.95;
+
+position:absolute;
+
+bottom:15px;
+right:40px;
+
+width:180px;
+
+z-index:4;
+
+animation:spin 40s linear infinite;
+
+filter:drop-shadow(0 8px 12px rgba(0,0,0,0.7));
+
 }
 
-/* NUMĂR CERTIFICAT */
+/* SIGILIU */
+
+.seal{
+
+position:absolute;
+
+bottom:25px;
+left:60px;
+
+width:300px;
+
+z-index:3;
+
+transform:rotate(-10deg);
+
+filter:drop-shadow(0 8px 14px rgba(0,0,0,0.7));
+
+}
+
+/* CERT NUMBER */
+
 .certificate-number{
-  position:absolute;
-  top:25px;
-  left:40px;
-  font-size:16px;
-  font-weight:bold;
+
+position:absolute;
+
+top:25px;
+left:40px;
+
+font-size:22px;
+
+font-weight:bold;
+
+color:#050202;
+
+z-index:5;
+
 }
 
-/* BUTON DOWNLOAD */
+@keyframes spin{
+
+0%{transform:rotate(0deg)}
+100%{transform:rotate(360deg)}
+
+}
+
+/* DOWNLOAD BUTTON */
+
 .download-button{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  padding:14px 22px;
-  background:#ffb703;
-  border:none;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
-  font-size:16px;
+
+display:none;
+
+position:fixed;
+
+bottom:25px;
+right:25px;
+
+padding:16px 24px;
+
+font-size:16px;
+
+border:none;
+
+border-radius:10px;
+
+background:#ffb703;
+
+cursor:pointer;
+
+box-shadow:0 6px 14px rgba(0,0,0,0.3);
+
 }
 
-@media print {
-  .download-button{
-    display:none;
-  }
-}
 </style>
+
 </head>
 
 <body>
 
-<div class="certificate">
+<div class="page-overlay">
+
+<div class="form-box" id="formBox">
+
+<h2>🏴‍☠️ Eure Ehrenurkunde</h2>
+
+<p>
+
+Gebt den Namen des Kindes ein,  
+um eure persönliche Urkunde zu erhalten.
+
+</p>
+
+<form id="certificateForm">
+
+<input type="text" id="childname" placeholder="Name des Kindes" required>
+
+<br>
+
+<input type="email" id="email" placeholder="E-Mail der Eltern" required>
+
+<br><br>
+
+<button type="submit">
+Urkunde erstellen
+</button>
+
+</form>
+
+</div>
+
+<div class="certificate" id="certificate">
+
+<div class="overlay"></div>
 
 <div class="certificate-number" id="certNumber"></div>
 
-<!-- BUSOLĂ SVG -->
-<svg class="compass" viewBox="0 0 200 200">
-  <circle cx="100" cy="100" r="95" stroke="#5a3e1b" stroke-width="6" fill="none"/>
-  <circle cx="100" cy="100" r="75" stroke="#5a3e1b" stroke-width="2" fill="none"/>
-  <line x1="100" y1="5" x2="100" y2="195" stroke="#5a3e1b" stroke-width="2"/>
-  <line x1="5" y1="100" x2="195" y2="100" stroke="#5a3e1b" stroke-width="2"/>
-  <polygon points="100,30 115,100 100,170 85,100" fill="#8b0000"/>
-  <polygon points="100,50 108,100 100,150 92,100" fill="#2f1b0c"/>
-  <text x="100" y="20" text-anchor="middle" font-size="18" fill="#5a3e1b">N</text>
-  <text x="100" y="195" text-anchor="middle" font-size="18" fill="#5a3e1b">S</text>
-  <text x="5" y="105" font-size="18" fill="#5a3e1b">W</text>
-  <text x="185" y="105" font-size="18" fill="#5a3e1b">E</text>
-</svg>
+<img src="compass.png" class="compass">
 
-<div class="seal">
-OFFIZIELL<br>BESTÄTIGT
+<img src="sigiliu.png" class="seal">
+
+<div class="content">
+
+<div class="title">
+GEHEIME EHRENURKUNDE
 </div>
 
-<div class="title">🏴‍☠️ GEHEIME EHRENURKUNDE</div>
-<div class="subtitle">Orden der Hüter des Sees</div>
+<div class="subtitle">
+Orden der Hüter des Sees
+</div>
 
 <div class="text">
-Mit Mut, Entschlossenheit und wahrem Entdeckergeist hat
+Mit Mut und Entdeckergeist hat
 </div>
 
 <div class="name" id="childName">
-Bogdan Savin
+Name
 </div>
 
 <div class="text">
-alle Prüfungen des geheimnisvollen Seehüters bestanden<br>
-und den verborgenen Schatz am See entdeckt.
+alle Prüfungen bestanden  
+und den verborgenen Schatz entdeckt.
 </div>
 
 <div class="footer">
-Verliehen am: <span id="date"></span><br><br>
-Im Namen des Seehüters 🏴‍☠️
+
+Verliehen am: <span id="date"></span>
+
+<br><br>
+
+Im Namen des Seehüters
+
+</div>
+
 </div>
 
 </div>
 
-<button class="download-button" onclick="generatePDF()">PDF herunterladen</button>
+<button id="downloadBtn" class="download-button" onclick="downloadPDF()">
+PDF herunterladen
+</button>
+
+</div>
 
 <script>
-// Nume din URL
-const params = new URLSearchParams(window.location.search);
-const name = params.get("name");
-if(name){
-  document.getElementById("childName").innerText = name;
+
+const today=new Date();
+
+document.getElementById("date").innerText=
+today.toLocaleDateString("de-DE");
+
+/* CERTIFICATE NUMBER */
+
+let counter=localStorage.getItem("certificateCounter");
+
+if(!counter){
+counter=1;
+}else{
+counter=parseInt(counter)+1;
 }
 
-// Data automată
-const today = new Date();
-document.getElementById("date").innerText =
-  today.toLocaleDateString("de-DE");
+localStorage.setItem("certificateCounter",counter);
 
-// Număr certificat incremental
-let counter = localStorage.getItem("certificateCounter");
-if(!counter){ counter = 1; }
-else{ counter = parseInt(counter) + 1; }
-localStorage.setItem("certificateCounter", counter);
+const year=today.getFullYear();
 
-const year = today.getFullYear();
-const padded = String(counter).padStart(3, '0');
-document.getElementById("certNumber").innerText =
-  "Zertifikat Nr: SD-" + year + "-" + padded;
+const padded=String(counter).padStart(3,'0');
 
-// Generare PDF automată
-function generatePDF() {
-  const element = document.querySelector(".certificate");
+document.getElementById("certNumber").innerText=
+"Zertifikat Nr: SD-"+year+"-"+padded;
 
-  const opt = {
-    margin:       0,
-    filename:     'Ehrenurkunde_' + document.getElementById("childName").innerText + '.pdf',
-    image:        { type: 'jpeg', quality: 1 },
-    html2canvas:  { scale: 3 },
-    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
-  };
+/* FORM */
 
-  html2pdf().set(opt).from(element).save();
+document.getElementById("certificateForm")
+.addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const name=document.getElementById("childname").value;
+const email=document.getElementById("email").value;
+
+/* SEND EMAIL TO FORMSPREE */
+
+await fetch("https://formspree.io/f/mojnojer",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+childname:name,
+email:email
+})
+
+});
+
+/* HIDE FORM */
+
+document.getElementById("formBox").style.display="none";
+
+/* SHOW CERTIFICATE */
+
+document.getElementById("childName").innerText=name;
+
+document.getElementById("certificate").style.display="block";
+
+/* SHOW DOWNLOAD BUTTON */
+
+document.getElementById("downloadBtn").style.display="block";
+
+});
+
+/* PDF DOWNLOAD */
+
+function downloadPDF(){
+
+const element=document.getElementById("certificate");
+
+const opt={
+margin:0,
+filename:'Ehrenurkunde_'+document.getElementById("childName").innerText+'.pdf',
+image:{type:'jpeg',quality:1},
+html2canvas:{scale:2},
+jsPDF:{unit:'mm',format:'a4',orientation:'landscape'}
+};
+
+html2pdf().set(opt).from(element).save();
+
 }
+
 </script>
 
 </body>

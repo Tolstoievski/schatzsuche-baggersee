@@ -1,0 +1,113 @@
+body{
+margin:0;
+font-family:'Trebuchet MS',Arial;
+text-align:center;
+color:#2f1b0c;
+
+background-image:url("pirate-adventure.jpg");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+
+.overlay{
+background:rgba(255,255,255,0.9);
+min-height:100vh;
+padding-bottom:40px;
+}
+
+.header{
+padding:25px;
+font-family:'Pirata One',cursive;
+font-size:32px;
+color:#5a3e1b;
+}
+
+.progress{
+margin:10px auto;
+width:240px;
+height:12px;
+background:#ddd;
+border-radius:10px;
+overflow:hidden;
+}
+
+.progress-bar{
+height:100%;
+background:#ffb703;
+}
+
+.card{
+background:white;
+margin:20px auto;
+padding:30px;
+border-radius:20px;
+max-width:520px;
+box-shadow:0 12px 30px rgba(0,0,0,0.25);
+}
+
+.story{
+font-size:18px;
+line-height:1.6;
+}
+
+button{
+padding:16px 28px;
+font-size:18px;
+border:none;
+border-radius:14px;
+background:#ffb703;
+cursor:pointer;
+margin-top:18px;
+font-weight:bold;
+}
+
+button:hover{
+background:#faa307;
+}
+
+input{
+padding:12px;
+font-size:18px;
+border-radius:10px;
+border:1px solid #ccc;
+margin-top:10px;
+}
+
+.hidden{
+display:none;
+}
+
+.success{
+color:green;
+font-weight:bold;
+font-size:20px;
+}
+
+.error{
+color:red;
+font-weight:bold;
+}
+
+.chest{
+font-size:120px;
+margin-top:20px;
+animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+0%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+100%{transform:translateY(0)}
+}
+
+.coin{
+position:fixed;
+font-size:28px;
+animation:coinfall 3s linear infinite;
+}
+
+@keyframes coinfall{
+0%{transform:translateY(-50px)}
+100%{transform:translateY(110vh)}
+}
