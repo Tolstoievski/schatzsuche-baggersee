@@ -1,30 +1,24 @@
 ```javascript
 const TEST_MODE = false;
 
-function getDistance(lat1, lon1, lat2, lon2){
-const R = 6371000;
-const dLat = (lat2-lat1)*Math.PI/180;
-const dLon = (lon2-lon1)*Math.PI/180;
-
-const a =
-Math.sin(dLat/2)**2 +
-Math.cos(lat1*Math.PI/180) *
-Math.cos(lat2*Math.PI/180) *
-Math.sin(dLon/2)**2;
-
-const c = 2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-return R*c;
-}
-
 function checkLocation(targetLat,targetLon,radius){
 
 const result = document.getElementById("gpsResult");
 const questionBox = document.getElementById("questionBox");
 
-if(!result || !questionBox){
-alert("Fehler: Elemente fehlen");
+/* daca nu exista → STOP clar */
+
+if(!result){
+alert("gpsResult nu exista");
 return;
 }
+
+if(!questionBox){
+alert("questionBox nu exista");
+return;
+}
+
+/* TEST MODE */
 
 if(TEST_MODE){
 result.innerHTML = "Testmodus aktiv";
@@ -32,7 +26,11 @@ questionBox.classList.remove("hidden");
 return;
 }
 
+/* LOADING */
+
 result.innerHTML = "GPS wird gesucht...";
+
+/* GPS */
 
 if(!navigator.geolocation){
 result.innerHTML = "Kein GPS verfügbar";
@@ -43,18 +41,16 @@ navigator.geolocation.getCurrentPosition(
 
 function(pos){
 
-const distance = getDistance(
-pos.coords.latitude,
-pos.coords.longitude,
-targetLat,
-targetLon
-);
+const distance = Math.sqrt(
+Math.pow(pos.coords.latitude-targetLat,2) +
+Math.pow(pos.coords.longitude-targetLon,2)
+)*111000;
 
 if(distance <= radius){
-result.innerHTML = "Perfekt!";
+result.innerHTML = "Richtig!";
 questionBox.classList.remove("hidden");
 }else{
-result.innerHTML = "Noch nicht ganz richtig";
+result.innerHTML = "Noch nicht richtig";
 }
 
 },
@@ -70,6 +66,11 @@ result.innerHTML = "GPS Fehler";
 function checkAnswer(correctAnswer){
 
 const next = document.getElementById("nextClue");
+
+if(!next){
+alert("nextClue fehlt");
+return;
+}
 
 const val =
 document.getElementById("answer").value.trim().toLowerCase();
