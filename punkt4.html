@@ -1,14 +1,16 @@
+```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="style.css">
 <title>Station 4</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="game.js" defer></script>
 </head>
 
 <body>
-
 <div class="overlay">
 
 <div class="header">Station 4</div>
@@ -19,69 +21,22 @@
 
 <div class="card">
 
-<p class="story">
-Hier genießen Menschen die Sonne…
-</p>
-
-<div class="didyouknow">
-
-🧭 <b>Wusstest du, dass...</b><br><br>
-
-Enten können manchmal
-mit einem offenen Auge schlafen,
-um sich vor Raubtieren zu schützen.
-
-</div>
-
-<button onclick="checkLocation(48.7680,11.4285,35)">
-Standort prüfen
-</button>
+<button onclick="checkLocation(48.7680,11.4285,35)">Standort prüfen</button>
 
 <p id="gpsResult"></p>
 
 <div id="questionBox" class="hidden">
-
-<p>Wie viele Picknicktische stehen hier?</p>
-
+<p>Wie viele Picknicktische?</p>
 <input id="answer">
-
 <button onclick="checkAnswer('4')">Antwort prüfen</button>
-
 </div>
 
 <div id="nextClue" class="hidden success">
-
-Der Schatz wartet!
-
-<a href="punkt5.html">
-<button>Zum Schatz</button>
-</a>
-
+<a href="punkt5.html"><button>Weiter</button></a>
 </div>
 
 </div>
-
 </div>
-
-<script src="game.js"></script>
-
-<script>
-
-function checkAnswer(){
-
-if(document.getElementById("answer").value=="4"){
-
-document.getElementById("nextClue").classList.remove("hidden");
-
-}else{
-
-alert("Leider falsch");
-
-}
-
-}
-
-</script>
-
 </body>
 </html>
+```

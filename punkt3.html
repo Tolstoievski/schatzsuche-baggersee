@@ -1,14 +1,16 @@
+```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="style.css">
 <title>Station 3</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="game.js" defer></script>
 </head>
 
 <body>
-
 <div class="overlay">
 
 <div class="header">Station 3</div>
@@ -19,69 +21,22 @@
 
 <div class="card">
 
-<p class="story">
-Folgt den flüsternden Bäumen…
-</p>
-
-<div class="didyouknow">
-
-🧭 <b>Wusstest du, dass...</b><br><br>
-
-Frösche können bis zum
-20-fachen ihrer Körperlänge
-springen.
-
-</div>
-
-<button onclick="checkLocation(48.7670,11.4275,35)">
-Standort prüfen
-</button>
+<button onclick="checkLocation(48.7670,11.4275,35)">Standort prüfen</button>
 
 <p id="gpsResult"></p>
 
 <div id="questionBox" class="hidden">
-
 <p>Welches Tier ist auf der Tafel?</p>
-
 <input id="answer">
-
 <button onclick="checkAnswer('ente')">Antwort prüfen</button>
-
 </div>
 
 <div id="nextClue" class="hidden success">
-
-Fantastisch!
-
-<a href="punkt4.html">
-<button>Weiter</button>
-</a>
-
+<a href="punkt4.html"><button>Weiter</button></a>
 </div>
 
 </div>
-
 </div>
-
-<script src="game.js"></script>
-
-<script>
-
-function checkAnswer(){
-
-if(document.getElementById("answer").value.toLowerCase()=="ente"){
-
-document.getElementById("nextClue").classList.remove("hidden");
-
-}else{
-
-alert("Leider falsch");
-
-}
-
-}
-
-</script>
-
 </body>
 </html>
+```

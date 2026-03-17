@@ -1,14 +1,16 @@
+```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="style.css">
 <title>Station 5</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="game.js" defer></script>
 </head>
 
 <body>
-
 <div class="overlay">
 
 <div class="header">Station 5</div>
@@ -19,80 +21,22 @@
 
 <div class="card">
 
-<p class="story">
-Ihr seid fast am Ziel!
-
-Der Seehüter sagt, dass der Schatz
-nur von echten Entdeckern gefunden werden kann.
-
-Beweist noch einmal euren Spürsinn.
-</p>
-
-<div class="didyouknow">
-
-🧭 <b>Wusstest du, dass...</b><br><br>
-
-Otter sind ausgezeichnete Schwimmer  
-und können bis zu <b>5 Minuten unter Wasser</b> bleiben?
-
-Ihre dichten Fellhaare halten sie sogar
-im kalten Wasser warm.
-
-</div>
-
-<button onclick="checkLocation(48.7685,11.4295,35)">
-Standort prüfen
-</button>
+<button onclick="checkLocation(48.7685,11.4295,35)">Standort prüfen</button>
 
 <p id="gpsResult"></p>
 
 <div id="questionBox" class="hidden">
-
-<p><b>Was hört man hier besonders oft am See?</b></p>
-
+<p>Was hört man hier oft?</p>
 <input id="answer">
-
-<br>
-
 <button onclick="checkAnswer('vögel')">Antwort prüfen</button>
-
 </div>
 
 <div id="nextClue" class="hidden success">
-
-Unglaublich!
-
-Der Schatz ist ganz in der Nähe.
-
-<a href="final.html">
-<button>Zum Schatz</button>
-</a>
-
+<a href="final.html"><button>Zum Schatz</button></a>
 </div>
 
 </div>
-
 </div>
-
-<script src="game.js"></script>
-
-<script>
-
-function checkAnswer(){
-
-if(document.getElementById("answer").value.toLowerCase()=="vögel"){
-
-document.getElementById("nextClue").classList.remove("hidden");
-
-}else{
-
-alert("Leider falsch");
-
-}
-
-}
-
-</script>
-
 </body>
 </html>
+```
