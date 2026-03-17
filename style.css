@@ -116,8 +116,10 @@ animation:coinfall 3s linear infinite;
 
 .didyouknow{
 
+display:block;
+
 margin-top:30px;
-padding:20px;
+padding:18px;
 
 background:#fff6d6;
 
@@ -126,16 +128,14 @@ border-left:6px solid #ffb703;
 border-radius:12px;
 
 font-size:16px;
-
 line-height:1.5;
 
 box-shadow:0 6px 14px rgba(0,0,0,0.15);
 
-opacity:0;
-transform:translateY(20px);
+/* IMPORTANT pentru mobil */
 
-animation:reveal 1s forwards;
-animation-delay:0.6s;
+width:100%;
+box-sizing:border-box;
 
 }
 
@@ -151,4 +151,13 @@ transform:translateY(0);
 a{
 text-decoration:none;
 color:inherit;
+}
+
+a{
+text-decoration:none !important;
+color:inherit !important;
+}
+
+button{
+color:#2f1b0c !important;
 }
