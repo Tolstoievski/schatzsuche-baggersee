@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="style.css">
-<title>Station 4</title>
+<title>Station 5</title>
 </head>
 
 <body>
 
 <div class="overlay">
 
-<div class="header">Station 4</div>
+<div class="header">Station 5</div>
 
 <div class="progress">
 <div class="progress-bar" style="width:100%"></div>
@@ -20,20 +20,27 @@
 <div class="card">
 
 <p class="story">
-Hier genießen Menschen die Sonne…
+Ihr seid fast am Ziel!
+
+Der Seehüter sagt, dass der Schatz
+nur von echten Entdeckern gefunden werden kann.
+
+Beweist noch einmal euren Spürsinn.
 </p>
 
 <div class="didyouknow">
 
 🧭 <b>Wusstest du, dass...</b><br><br>
 
-Enten können manchmal
-mit einem offenen Auge schlafen,
-um sich vor Raubtieren zu schützen.
+Otter sind ausgezeichnete Schwimmer  
+und können bis zu <b>5 Minuten unter Wasser</b> bleiben?
+
+Ihre dichten Fellhaare halten sie sogar
+im kalten Wasser warm.
 
 </div>
 
-<button onclick="checkLocation(48.7680,11.4285,35)">
+<button onclick="checkLocation(48.7685,11.4295,35)">
 Standort prüfen
 </button>
 
@@ -41,9 +48,11 @@ Standort prüfen
 
 <div id="questionBox" class="hidden">
 
-<p>Wie viele Picknicktische stehen hier?</p>
+<p><b>Was hört man hier besonders oft am See?</b></p>
 
 <input id="answer">
+
+<br>
 
 <button onclick="checkAnswer()">Antwort prüfen</button>
 
@@ -51,9 +60,11 @@ Standort prüfen
 
 <div id="nextClue" class="hidden success">
 
-Der Schatz wartet!
+Unglaublich!
 
-<a href="punkt5.html">
+Der Schatz ist ganz in der Nähe.
+
+<a href="final.html">
 <button>Zum Schatz</button>
 </a>
 
@@ -69,7 +80,7 @@ Der Schatz wartet!
 
 function checkAnswer(){
 
-if(document.getElementById("answer").value=="4"){
+if(document.getElementById("answer").value.toLowerCase()=="vögel"){
 
 document.getElementById("nextClue").classList.remove("hidden");
 
