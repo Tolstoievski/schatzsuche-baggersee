@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
 
 <meta charset="UTF-8">
@@ -9,6 +8,7 @@
 <title>Station 1</title>
 
 <link rel="stylesheet" href="style.css">
+<script src="game.js" defer></script>
 
 </head>
 
@@ -25,64 +25,39 @@
 <div class="card">
 
 <p class="story">
-
 Die Karte zeigt einen Ort,
 an dem alle Besucher ihre Reise beginnen.
-
 Findet diesen Ort!
-
 </p>
 
 <div class="didyouknow">
-
 🧭 <b>Wusstest du, dass...</b><br><br>
-
 Biber können mit ihren Zähnen einen dünnen Baum
 in weniger als 30 Minuten fällen.
-
-Ihre Zähne wachsen ihr ganzes Leben lang
-und müssen durch das Nagen an Bäumen
-ständig abgenutzt werden.
-
 </div>
 
-<button onclick="checkLocation(48.7652,11.4257,35)">
+<button onclick="checkLocation(48.709167,11.403333,50)">
 Standort prüfen
 </button>
 
 <p id="gpsResult"></p>
 
 <div id="questionBox" class="hidden">
-
 <p><b>Wie viele Bänke stehen neben der Infotafel?</b></p>
-
 <input id="answer">
-
 <br>
-
 <button onclick="checkAnswer('3')">Antwort prüfen</button>
-
 </div>
 
 <div id="nextClue" class="hidden success">
-
 Super!
-
 <a href="punkt2.html">
 <button>Weiter</button>
 </a>
-
 </div>
 
 </div>
-
 </div>
-
-<script src="game.js"></script>
-
-<script>
-
-<script src="game.js"></script>
 
 </body>
 </html>
