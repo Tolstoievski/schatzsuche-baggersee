@@ -1,16 +1,11 @@
-```html
 <!DOCTYPE html>
 <html lang="de">
-<head>
 
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Station 1</title>
-
-<link rel="stylesheet" href="./style.css">
-<script src="./game.js" ></script>
-
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -33,11 +28,10 @@ Findet diesen Ort!
 
 <div class="didyouknow">
 🧭 <b>Wusstest du, dass...</b><br><br>
-Biber können mit ihren Zähnen einen dünnen Baum
-in weniger als 30 Minuten fällen.
+Biber können mit ihren Zähnen einen dünnen Baum in weniger als 30 Minuten fällen. Ihre Zähne wachsen ihr ganzes Leben lang und müssen durch das Nagen an Bäumen ständig abgenutzt werden.
 </div>
 
-<button onclick="checkLocation(48.709167,11.403333,50)">
+<button onclick="checkLocation(48.709167,11.403333,60)">
 Standort prüfen
 </button>
 
@@ -45,12 +39,9 @@ Standort prüfen
 
 <div id="questionBox" class="hidden">
 <p><b>Wie viele Bänke stehen neben der Infotafel?</b></p>
-
 <input id="answer">
-
 <br>
-
-<button onclick="checkAnswer('3')">Antwort prüfen</button>
+<button onclick="checkAnswer()">Antwort prüfen</button>
 </div>
 
 <div id="nextClue" class="hidden success">
@@ -60,6 +51,18 @@ Super!
 
 </div>
 </div>
+
+<script src="game.js"></script>
+
+<script>
+function checkAnswer(){
+if(document.getElementById("answer").value.trim()=="3"){
+document.getElementById("nextClue").classList.remove("hidden");
+}else{
+alert("Leider falsch");
+}
+}
+</script>
 
 </body>
 </html>

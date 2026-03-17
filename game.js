@@ -1,85 +1,63 @@
-```javascript
-const TEST_MODE = false;
+function getDistance(lat1, lon1, lat2, lon2){
+
+const R = 6371000;
+
+const dLat = (lat2-lat1)*Math.PI/180;
+const dLon = (lon2-lon1)*Math.PI/180;
+
+const a =
+Math.sin(dLat/2)**2 +
+Math.cos(lat1*Math.PI/180) *
+Math.cos(lat2*Math.PI/180) *
+Math.sin(dLon/2)**2;
+
+const c = 2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+
+return R*c;
+}
 
 function checkLocation(targetLat,targetLon,radius){
 
-const result = document.getElementById("gpsResult");
-const questionBox = document.getElementById("questionBox");
+navigator.geolocation.getCurrentPosition(function(pos){
 
-/* daca nu exista → STOP clar */
-
-if(!result){
-alert("gpsResult nu exista");
-return;
-}
-
-if(!questionBox){
-alert("questionBox nu exista");
-return;
-}
-
-/* TEST MODE */
-
-if(TEST_MODE){
-result.innerHTML = "Testmodus aktiv";
-questionBox.classList.remove("hidden");
-return;
-}
-
-/* LOADING */
-
-result.innerHTML = "GPS wird gesucht...";
-
-/* GPS */
-
-if(!navigator.geolocation){
-result.innerHTML = "Kein GPS verfügbar";
-return;
-}
-
-navigator.geolocation.getCurrentPosition(
-
-function(pos){
-
-const distance = Math.sqrt(
-Math.pow(pos.coords.latitude-targetLat,2) +
-Math.pow(pos.coords.longitude-targetLon,2)
-)*111000;
-
-if(distance <= radius){
-result.innerHTML = "Richtig!";
-questionBox.classList.remove("hidden");
-}else{
-result.innerHTML = "Noch nicht richtig";
-}
-
-},
-
-function(){
-result.innerHTML = "GPS Fehler";
-}
-
+const distance = getDistance(
+pos.coords.latitude,
+pos.coords.longitude,
+targetLat,
+targetLon
 );
 
-}
+if(distance <= radius){
 
-function checkAnswer(correctAnswer){
+document.getElementById("gpsResult").innerHTML =
+"<span class='success'>Perfekt! Ihr seid am richtigen Ort.</span>";
 
-const next = document.getElementById("nextClue");
+document.getElementById("questionBox").classList.remove("hidden");
 
-if(!next){
-alert("nextClue fehlt");
-return;
-}
-
-const val =
-document.getElementById("answer").value.trim().toLowerCase();
-
-if(val == correctAnswer){
-next.classList.remove("hidden");
 }else{
-alert("Leider falsch");
+
+document.getElementById("gpsResult").innerHTML =
+"<span class='error'>Noch nicht ganz richtig – schaut euch weiter um.</span>";
+
+}
+
+});
+}
+
+function launchCoins(){
+
+for(let i=0;i<30;i++){
+
+const coin=document.createElement("div");
+
+coin.className="coin";
+coin.innerHTML="💰";
+
+coin.style.left=Math.random()*100+"vw";
+coin.style.animationDuration=(2+Math.random()*3)+"s";
+
+document.body.appendChild(coin);
+
 }
 
 }
-```
