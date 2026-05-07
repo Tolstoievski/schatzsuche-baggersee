@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="style.css">
-<title>Station 3</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Station 3</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="overlay">
 
-<div class="header">Station 3</div>
+  <div class="header">Station 3 — Das bunte Haus</div>
 
-<div class="progress">
-<div class="progress-bar" style="width:60%"></div>
-</div>
+  <div class="progress"><div class="progress-bar" style="width:50%"></div></div>
 
-<div class="card">
+  <div class="nav-bar"><a href="punkt2.html" class="back-link">← Station 2</a></div>
 
-<p class="story">
-Folgt den flüsternden Bäumen…
-</p>
+  <div class="card">
 
-<div class="didyouknow">
-🧭 <b>Wusstest du, dass...</b><br><br>
-Frösche können bis zum 20-fachen ihrer Körperlänge springen?
-</div>
+    <p class="story">
+      🎨 Vor euch steht ein bunt bemaltes Umkleidehaus.
+      Schaut es euch genau an — die Bilder darauf verraten euch etwas über den Baggersee!
+    </p>
 
-<button onclick="checkLocation(48.7670,11.4275,35)">
-Standort prüfen
-</button>
+    <div class="didyouknow">
+      🧭 <b>Wusstet ihr, dass…</b><br><br>
+      Biber können mit ihren Zähnen einen dünnen Baum in weniger als 30 Minuten fällen?
+      Ihre Zähne wachsen ein ganzes Leben lang und müssen durch das Nagen an Bäumen ständig abgenutzt werden!
+    </div>
 
-<p id="gpsResult"></p>
+    <button onclick="checkLocation(48.75306, 11.39722, 50)">📍 Standort prüfen</button>
+    <p id="gpsResult"></p>
 
-<div id="questionBox" class="hidden">
-<p>Welches Tier ist auf der Tafel?</p>
-<input id="answer">
-<button onclick="checkAnswer()">Antwort prüfen</button>
-</div>
+    <div id="questionBox" class="hidden">
+      <p><b>Was ist neben dem Schriftzug „Baggersee" auf das Umkleidehaus gemalt?</b></p>
+      <div class="answer-buttons">
+        <button class="answer-btn" onclick="checkButtonAnswer('Blumen', ['Blumen','Palmen'], 'punkt4.html', 3)">🌸 Blumen</button>
+        <button class="answer-btn" onclick="checkButtonAnswer('Palmen', ['Blumen','Palmen'], 'punkt4.html', 3)">🌴 Palmen</button>
+        <button class="answer-btn" onclick="checkButtonAnswer('Anker', ['Blumen','Palmen'], 'punkt4.html', 3)">⚓ Anker</button>
+      </div>
+      <div id="hintBox" class="hintbox hidden">
+        💡 <b>Hinweis:</b> Schaut euch die großen bunten Bilder auf dem Umkleidehaus genau an — was wächst in warmen Ländern?
+      </div>
+    </div>
 
-<div id="nextClue" class="hidden success">
-Fantastisch!
-<a href="punkt4.html"><button>Weiter</button></a>
-</div>
+    <div id="nextClue" class="hidden">
+      <div class="next-box">
+        <p class="success">🎉 Fantastisch!</p>
+        <p class="distance-info">Steuert Richtung Südwesten. Nach 250 Metern erreicht ihr ein rotes Haus. Dort könnt ihr eine Pause beim Beachvolleyball einlegen!</p>
+        <a href="punkt4.html"><button>Weiter zu Station 4 →</button></a>
+      </div>
+    </div>
 
-</div>
+  </div>
+
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+  </div>
+
 </div>
 
 <script src="game.js"></script>
-
-<script>
-function checkAnswer(){
-if(document.getElementById("answer").value.toLowerCase()=="ente"){
-document.getElementById("nextClue").classList.remove("hidden");
-}else{
-alert("Leider falsch");
-}
-}
-</script>
-
+<script>checkAccess(2);</script>
 </body>
 </html>
-```

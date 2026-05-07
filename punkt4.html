@@ -1,65 +1,68 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="style.css">
-<title>Station 4</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Station 4</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="overlay">
 
-<div class="header">Station 4</div>
+  <div class="header">Station 4 — Das rote Haus</div>
 
-<div class="progress">
-<div class="progress-bar" style="width:80%"></div>
-</div>
+  <div class="progress"><div class="progress-bar" style="width:67%"></div></div>
 
-<div class="card">
+  <div class="nav-bar"><a href="punkt3.html" class="back-link">← Station 3</a></div>
 
-<p class="story">
-Hier genießen Menschen die Sonne…
-</p>
+  <div class="card">
 
-<div class="didyouknow">
-🧭 <b>Wusstest du, dass...</b><br><br>
-Enten können manchmal mit einem offenen Auge schlafen, um sich vor Raubtieren zu schützen?
-</div>
+    <p class="story">
+      🏚️ Ihr habt das rote Haus erreicht!
+      Hier kann man nicht nur im See schwimmen — es gibt eine ganz besondere Wassersportmöglichkeit.
+      Schaut euch um und findet heraus, welche!
+    </p>
 
-<button onclick="checkLocation(48.7680,11.4285,35)">
-Standort prüfen
-</button>
+    <div class="didyouknow">
+      🧭 <b>Wusstet ihr, dass…</b><br><br>
+      Otter sind ausgezeichnete Schwimmer und können bis zu 5 Minuten unter Wasser bleiben?
+      Sie schlafen sogar manchmal auf dem Rücken treibend im Wasser und halten sich dabei an den Pfoten fest, um nicht abzutreiben!
+    </div>
 
-<p id="gpsResult"></p>
+    <button onclick="checkLocation(48.75167, 11.39444, 50)">📍 Standort prüfen</button>
+    <p id="gpsResult"></p>
 
-<div id="questionBox" class="hidden">
-<p>Wie viele Picknicktische stehen hier?</p>
-<input id="answer">
-<button onclick="checkAnswer()">Antwort prüfen</button>
-</div>
+    <div id="questionBox" class="hidden">
+      <p><b>Welche besondere Wassersportaktivität kann man am roten Haus machen?</b></p>
+      <div class="answer-buttons">
+        <button class="answer-btn" onclick="checkButtonAnswer('Tauchen', ['Tauchen'], 'punkt5.html', 4)">🤿 Tauchen</button>
+        <button class="answer-btn" onclick="checkButtonAnswer('Segeln', ['Tauchen'], 'punkt5.html', 4)">⛵ Segeln</button>
+        <button class="answer-btn" onclick="checkButtonAnswer('Surfen', ['Tauchen'], 'punkt5.html', 4)">🏄 Surfen</button>
+      </div>
+      <div id="hintBox" class="hintbox hidden">
+        💡 <b>Hinweis:</b> Schaut euch die Schilder am roten Haus an — hier kann man Ausrüstung für eine Unterwasser-Aktivität ausleihen!
+      </div>
+    </div>
 
-<div id="nextClue" class="hidden success">
-Der Schatz wartet!
-<a href="final.html"><button>Zum Schatz</button></a>
-</div>
+    <div id="nextClue" class="hidden">
+      <div class="next-box">
+        <p class="success">🎉 Richtig!</p>
+        <p class="distance-info">Jetzt wird's spannend! Folgt dem Weg 600 Meter weiter. Dort machen der See und der Weg eine scharfe Kurve. Eine versteckte Bank bietet euch Schatten.</p>
+        <a href="punkt5.html"><button>Weiter zu Station 5 →</button></a>
+      </div>
+    </div>
 
-</div>
+  </div>
+
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+  </div>
+
 </div>
 
 <script src="game.js"></script>
-
-<script>
-function checkAnswer(){
-if(document.getElementById("answer").value=="4"){
-document.getElementById("nextClue").classList.remove("hidden");
-}else{
-alert("Leider falsch");
-}
-}
-</script>
-
+<script>checkAccess(3);</script>
 </body>
 </html>
-```

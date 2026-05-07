@@ -1,66 +1,66 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="style.css">
-<title>Station 2</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Station 2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="overlay">
 
-<div class="header">Station 2</div>
+  <div class="header">Station 2 — Das Seehaus</div>
 
-<div class="progress">
-<div class="progress-bar" style="width:40%"></div>
-</div>
+  <div class="progress"><div class="progress-bar" style="width:33%"></div></div>
 
-<div class="card">
+  <div class="nav-bar"><a href="punkt1.html" class="back-link">← Station 1</a></div>
 
-<p class="story">
-Wo das Wasser am weitesten sichtbar ist,
-wartet die nächste Prüfung.
-</p>
+  <div class="card">
 
-<div class="didyouknow">
-🧭 <b>Wusstest du, dass...</b><br><br>
-Schwäne wählen normalerweise einen einzigen Partner für ihr ganzes Leben?
-</div>
+    <p class="story">
+      🏠 Zwischen dem Seehaus und dem Y-förmigen Steg wartet eure nächste Prüfung.
+      Schaut euch gut um!
+    </p>
 
-<button onclick="checkLocation(48.7660,11.4265,35)">
-Standort prüfen
-</button>
+    <div class="didyouknow">
+      🧭 <b>Wusstet ihr, dass…</b><br><br>
+      Schwäne wählen normalerweise einen einzigen Partner für ihr ganzes Leben?
+      Wenn ihr ein Schwanenpaar auf dem See seht, sind die beiden wahrscheinlich schon seit Jahren zusammen!
+    </div>
 
-<p id="gpsResult"></p>
+    <button onclick="checkLocation(48.75167, 11.39861, 50)">📍 Standort prüfen</button>
+    <p id="gpsResult"></p>
 
-<div id="questionBox" class="hidden">
-<p>Welche Farbe hat die Boje?</p>
-<input id="answer">
-<button onclick="checkAnswer()">Antwort prüfen</button>
-</div>
+    <div id="questionBox" class="hidden">
+      <p><b>Wie viele Stufen führen hinauf zur Terrasse des Seehauses?</b></p>
+      <input id="answer" type="number" inputmode="numeric" placeholder="Zahl">
+      <br>
+      <!-- TODO: '12' ist Platzhalter! Korrekte Stufenzahl einsetzen. -->
+      <button onclick="checkTextAnswer(['12'], 'punkt3.html', 2)">Antwort prüfen</button>
+      <div id="hintBox" class="hintbox hidden">
+        💡 <b>Hinweis:</b> Geht zum Eingang des Seehauses und zählt die Stufen von unten bis oben!
+      </div>
+    </div>
 
-<div id="nextClue" class="hidden success">
-Gut gemacht!
-<a href="punkt3.html"><button>Weiter</button></a>
-</div>
+    <div id="nextClue" class="hidden">
+      <div class="next-box">
+        <p class="success">🎉 Gut gemacht!</p>
+        <p class="distance-info">Folgt dem Uferweg weitere 350 Meter. Haltet Ausschau nach einem bunt bemalten Umkleidehaus!</p>
+        <a href="punkt3.html"><button>Weiter zu Station 3 →</button></a>
+      </div>
+    </div>
 
-</div>
+  </div>
+
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+  </div>
+
 </div>
 
 <script src="game.js"></script>
-
-<script>
-function checkAnswer(){
-if(document.getElementById("answer").value.toLowerCase()=="rot"){
-document.getElementById("nextClue").classList.remove("hidden");
-}else{
-alert("Leider falsch");
-}
-}
-</script>
-
+<script>checkAccess(1);</script>
 </body>
 </html>
-```

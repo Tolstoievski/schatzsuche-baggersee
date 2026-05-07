@@ -1,124 +1,275 @@
-body{
-margin:0;
-font-family:'Trebuchet MS',Arial;
-text-align:center;
-color:#2f1b0c;
+/* =============================================
+   DER SCHATZ DES SEEHÜTERS — Stylesheet
+   ============================================= */
 
-background-image:url("pirate-adventure.jpg");
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
+body {
+  margin: 0;
+  font-family: 'Trebuchet MS', Arial;
+  text-align: center;
+  color: #2f1b0c;
+  background-image: url("pirate-adventure.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
-.overlay{
-background:transparent;
-min-height:100vh;
-padding-bottom:40px;
-display:flex;
-flex-direction:column;
-align-items:center;
+/* LAYOUT */
+.overlay {
+  background: transparent;
+  min-height: 100vh;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.header{
-padding:25px;
-font-family:'Pirata One',cursive;
-font-size:32px;
-color:#5a3e1b;
+.header {
+  padding: 25px;
+  font-family: 'Pirata One', cursive;
+  font-size: 32px;
+  color: #5a3e1b;
 }
 
-.progress{
-margin:10px auto;
-width:240px;
-height:12px;
-background:#ddd;
-border-radius:10px;
-overflow:hidden;
+/* PROGRESS BAR */
+.progress {
+  margin: 10px auto;
+  width: 240px;
+  height: 12px;
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.progress-bar{
-height:100%;
-background:#ffb703;
+.progress-bar {
+  height: 100%;
+  background: #ffb703;
+  transition: width 0.5s ease;
 }
 
-.card{
-background:white;
-margin:20px auto;
-padding:30px;
-border-radius:20px;
-max-width:520px;
-box-shadow:0 12px 30px rgba(0,0,0,0.25);
+/* CARD */
+.card {
+  background: white;
+  margin: 20px auto;
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 520px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
-.story{
-font-size:18px;
-line-height:1.6;
+.story {
+  font-size: 18px;
+  line-height: 1.6;
 }
 
-button{
-padding:16px 28px;
-font-size:18px;
-border:none;
-border-radius:14px;
-background:#ffb703;
-cursor:pointer;
-margin-top:18px;
-font-weight:bold;
+/* BUTTONS */
+button {
+  padding: 16px 28px;
+  font-size: 18px;
+  border: none;
+  border-radius: 14px;
+  background: #ffb703;
+  cursor: pointer;
+  margin-top: 18px;
+  font-weight: bold;
+  transition: background 0.2s;
 }
 
-button:hover{
-background:#faa307;
+button:hover {
+  background: #faa307;
 }
 
-input{
-padding:12px;
-font-size:18px;
-border-radius:10px;
-border:1px solid #ccc;
-margin-top:10px;
+button:active {
+  transform: scale(0.97);
 }
 
-.hidden{
-display:none;
+/* ANSWER BUTTONS */
+.answer-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
 }
 
-.success{
-color:green;
-font-weight:bold;
-font-size:20px;
+.answer-btn {
+  padding: 14px 20px;
+  font-size: 17px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: normal;
+  margin-top: 0;
+  transition: all 0.2s;
 }
 
-.error{
-color:red;
-font-weight:bold;
+.answer-btn:hover {
+  border-color: #ffb703;
+  background: #fff8e7;
 }
 
-.chest{
-font-size:120px;
-margin-top:20px;
-animation:bounce 2s infinite;
+/* TEXT INPUT */
+input {
+  padding: 12px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  width: 80%;
+  max-width: 200px;
 }
 
-@keyframes bounce{
-0%{transform:translateY(0)}
-50%{transform:translateY(-10px)}
-100%{transform:translateY(0)}
+/* STATES */
+.hidden {
+  display: none;
 }
 
-.coin{
-position:fixed;
-font-size:28px;
-animation:coinfall 3s linear infinite;
+.success {
+  color: green;
+  font-weight: bold;
+  font-size: 20px;
 }
 
-@keyframes coinfall{
-0%{transform:translateY(-50px)}
-100%{transform:translateY(110vh)}
+.error {
+  color: #c0392b;
+  font-weight: bold;
 }
 
-.didyouknow{
-background:#f3e5ab;
-padding:15px;
-border-radius:15px;
-margin:20px 0;
-border-left:6px solid #ffb703;
+.checking {
+  color: #8e6b00;
+  font-weight: bold;
+}
+
+/* DID YOU KNOW */
+.didyouknow {
+  background: #f3e5ab;
+  padding: 15px;
+  border-radius: 15px;
+  margin: 20px 0;
+  border-left: 6px solid #ffb703;
+  text-align: left;
+}
+
+/* HINT BOX */
+.hintbox {
+  background: #e8f5e9;
+  padding: 14px;
+  border-radius: 12px;
+  margin-top: 15px;
+  border-left: 6px solid #66bb6a;
+  text-align: left;
+}
+
+/* CHEST ANIMATION */
+.chest {
+  font-size: 120px;
+  margin-top: 20px;
+  animation: bounce 2s infinite;
+  cursor: pointer;
+}
+
+@keyframes bounce {
+  0%   { transform: translateY(0) }
+  50%  { transform: translateY(-10px) }
+  100% { transform: translateY(0) }
+}
+
+/* COIN RAIN */
+.coin {
+  position: fixed;
+  font-size: 28px;
+  z-index: 999;
+  animation: coinfall 3s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes coinfall {
+  0%   { transform: translateY(-50px) }
+  100% { transform: translateY(110vh) }
+}
+
+/* NEXT CLUE BOX */
+.next-box {
+  margin-top: 25px;
+}
+
+.next-box button {
+  padding: 16px 28px;
+  font-size: 18px;
+}
+
+/* DISTANCE INFO */
+.distance-info {
+  font-size: 14px;
+  color: #8e6b00;
+  margin-top: 8px;
+}
+
+/* FOOTER */
+.footer-links {
+  margin-top: auto;
+  padding: 20px;
+  font-size: 13px;
+}
+
+.footer-links a {
+  color: #5a3e1b;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* BACK NAVIGATION */
+.nav-bar {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 10px;
+  margin-bottom: -10px;
+}
+
+.back-link {
+  color: #5a3e1b;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.6);
+  transition: background 0.2s;
+}
+
+.back-link:hover {
+  background: rgba(255,255,255,0.9);
+}
+
+/* RESET BUTTON (index) */
+.reset-link {
+  color: #999;
+  font-size: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.reset-link:hover {
+  color: #c0392b;
+}
+
+/* CONFETTI (final page) */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  z-index: 999;
+  animation: fall 4s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  0%   { transform: translateY(-20px) rotate(0deg) }
+  100% { transform: translateY(110vh) rotate(720deg) }
 }

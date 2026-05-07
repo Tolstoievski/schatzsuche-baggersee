@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Station 6</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="overlay">
+
+  <div class="header">Station 6 — Der kleine Strand</div>
+
+  <div class="progress"><div class="progress-bar" style="width:100%"></div></div>
+
+  <div class="nav-bar"><a href="punkt5.html" class="back-link">← Station 5</a></div>
+
+  <div class="card">
+
+    <p class="story">
+      🏖️ Ihr habt das zweite bunte Umkleidehaus erreicht!
+      Hier lädt ein kleiner Strand zum Verweilen ein.
+      Aber der Schatz wartet — eine letzte Frage noch!
+    </p>
+
+    <div class="didyouknow">
+      🧭 <b>Wusstet ihr, dass…</b><br><br>
+      Libellen können rückwärts fliegen und erreichen Geschwindigkeiten von bis zu 50 km/h?
+      Sie sind die besten Flieger der Insektenwelt und leben schon seit über 300 Millionen
+      Jahren auf der Erde — noch vor den Dinosauriern!
+    </div>
+
+    <button onclick="checkLocation(48.75222, 11.38639, 50)">📍 Standort prüfen</button>
+    <p id="gpsResult"></p>
+
+    <div id="questionBox" class="hidden">
+      <p><b>Wie viele bunte Umkleidehäuser habt ihr insgesamt auf dem Weg gesehen?</b></p>
+      <input id="answer" type="number" inputmode="numeric" placeholder="Zahl">
+      <br>
+      <button onclick="checkTextAnswer(['2'], 'final.html', 6)">Antwort prüfen</button>
+      <div id="hintBox" class="hintbox hidden">
+        💡 <b>Hinweis:</b> Denkt an den ganzen Weg zurück — bei welchen Stationen habt ihr ein bunt bemaltes Umkleidehaus gesehen?
+      </div>
+    </div>
+
+    <div id="nextClue" class="hidden">
+      <div class="next-box">
+        <p class="success">🎉 Sehr gut! Ihr habt aufgepasst!</p>
+        <p class="distance-info">Die letzte Etappe! Nur noch 400 Meter bis zum Schatz. An der Kreuzung wartet eine Entscheidung: rechts zum Wildpark, links zum Spielplatz. Aber zuerst — der Schatz!</p>
+        <a href="final.html"><button>🏴‍☠️ Zum Schatz! →</button></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+  </div>
+
+</div>
+
+<script src="game.js"></script>
+<script>checkAccess(5);</script>
+</body>
+</html>

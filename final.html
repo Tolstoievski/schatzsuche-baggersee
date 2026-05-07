@@ -1,175 +1,138 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-
-<title>Der Schatz</title>
-
-<link rel="stylesheet" href="style.css">
-
-<style>
-
-.chest{
-font-size:120px;
-margin:20px 0;
-cursor:pointer;
-}
-
-/* CONFETTI */
-
-.confetti{
-
-position:fixed;
-
-width:10px;
-height:10px;
-
-z-index:999;
-
-animation:fall 4s linear forwards;
-
-}
-
-@keyframes fall{
-
-0%{
-transform:translateY(-20px) rotate(0deg);
-}
-
-100%{
-transform:translateY(110vh) rotate(720deg);
-}
-
-}
-
-.next-box{
-margin-top:25px;
-}
-
-.next-box button{
-
-padding:16px 28px;
-font-size:18px;
-
-border:none;
-border-radius:12px;
-
-background:#ffb703;
-
-cursor:pointer;
-
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Der Schatz!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="overlay">
 
-<div class="header">
-🏆 Der Schatz des Seehüters
+  <div class="header">🏆 Der Schatz des Seehüters</div>
+
+  <div class="nav-bar"><a href="punkt6.html" class="back-link">← Station 6</a></div>
+
+  <div class="card">
+
+    <p class="story">
+      Ihr steht an der Kreuzung zwischen Wildpark und Spielplatz.
+      Hier liegt der verborgene Schatz des Seehüters!<br><br>
+      Prüft euren Standort, um den Schatz zu öffnen.
+    </p>
+
+    <button onclick="checkFinalLocation()">📍 Standort prüfen</button>
+    <p id="gpsResult"></p>
+
+    <div id="treasureArea" class="hidden">
+
+      <h2>🎉 Herzlichen Glückwunsch!</h2>
+
+      <p>
+        Ihr habt alle sechs Prüfungen bestanden und den verborgenen Schatz entdeckt!
+      </p>
+
+      <p>
+        Ihr seid nun offizielle<br>
+        <strong>Hüter des Baggersees</strong>. 🛡️
+      </p>
+
+      <div class="chest" onclick="openChest()">💰</div>
+
+      <p id="treasureText" class="hidden">
+        🎓 Der Schatz ist geöffnet!<br>
+        Holt euch jetzt eure persönliche Ehrenurkunde.
+      </p>
+
+      <div id="certificateBtn" class="next-box hidden">
+        <p>
+          Rechts geht es zum Wildpark, links zum Spielplatz —
+          aber zuerst eure wohlverdiente Urkunde!
+        </p>
+        <button onclick="window.location.href='urkunde-generator.html'">
+          🏴‍☠️ Zur Ehrenurkunde
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+  </div>
+
 </div>
 
-<div class="card">
-
-<h2>Herzlichen Glückwunsch!</h2>
-
-<p class="story">
-
-Ihr habt alle Prüfungen bestanden  
-und den verborgenen Schatz entdeckt!
-
-</p>
-
-<p>
-
-Ihr seid nun offizielle  
-<strong>Schatzsucher des Sees</strong>.
-
-</p>
-
-<p>
-
-🎓 Holt euch jetzt eure persönliche Ehrenurkunde.
-
-</p>
-
-<div class="chest" onclick="openChest()">
-💰
-</div>
-
-<p id="treasureText" class="hidden">
-
-Der Schatz ist geöffnet!  
-Jetzt könnt ihr eure Urkunde erhalten.
-
-</p>
-
-<div class="next-box">
-
-<button onclick="goToCertificate()">
-
-🏴‍☠️ Zur Urkunde
-
-</button>
-
-</div>
-
-</div>
-
-</div>
+<script src="game.js"></script>
 
 <script>
+/* Anti-cheat: must have completed all 6 stations */
+checkAccess(6);
 
-/* OPEN CHEST */
+function checkFinalLocation() {
+  const gpsResult = document.getElementById("gpsResult");
 
-function openChest(){
+  if (!navigator.geolocation) {
+    gpsResult.innerHTML = "<span class='error'>⚠️ Standortabfrage nicht unterstützt.</span>";
+    return;
+  }
 
-document.getElementById("treasureText").classList.remove("hidden");
+  gpsResult.innerHTML = "<span class='checking'>📡 Standort wird geprüft…</span>";
 
-launchConfetti();
+  navigator.geolocation.getCurrentPosition(
+    function (pos) {
+      /* TODO: Koordinaten ggf. nach Vor-Ort-Messung anpassen */
+      const distance = getDistance(
+        pos.coords.latitude, pos.coords.longitude,
+        48.75286, 11.38642
+      );
 
+      if (distance <= 60) {
+        gpsResult.innerHTML =
+          "<span class='success'>✅ Ihr habt den Schatz gefunden!</span>";
+        document.getElementById("treasureArea").classList.remove("hidden");
+        setProgress(7);
+        launchConfetti();
+      } else {
+        const hint = distance > 500
+          ? "Ihr seid noch weit entfernt!"
+          : distance > 100
+            ? "Schon in der Nähe — sucht die Kreuzung!"
+            : "Fast da! Nur noch ein paar Schritte!";
+        gpsResult.innerHTML =
+          "<span class='error'>📍 " + hint + " (" + Math.round(distance) + " m)</span>";
+      }
+    },
+    function () {
+      gpsResult.innerHTML =
+        "<span class='error'>⚠️ Standort konnte nicht ermittelt werden. Versucht es erneut.</span>";
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+  );
 }
 
-/* CONFETTI */
-
-function launchConfetti(){
-
-const colors=["red","yellow","blue","green","orange","purple"];
-
-for(let i=0;i<120;i++){
-
-const c=document.createElement("div");
-
-c.className="confetti";
-
-c.style.background=colors[Math.floor(Math.random()*colors.length)];
-
-c.style.left=Math.random()*100+"vw";
-
-c.style.animationDuration=(3+Math.random()*3)+"s";
-
-document.body.appendChild(c);
-
+function openChest() {
+  document.getElementById("treasureText").classList.remove("hidden");
+  document.getElementById("certificateBtn").classList.remove("hidden");
+  launchConfetti();
 }
 
+function launchConfetti() {
+  const colors = ["#ff6b6b", "#ffd93d", "#6bcb77", "#4d96ff", "#ff922b", "#cc5de8"];
+  for (let i = 0; i < 120; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.animationDuration = (3 + Math.random() * 3) + "s";
+    c.style.animationDelay = Math.random() * 2 + "s";
+    document.body.appendChild(c);
+  }
 }
-
-/* GO TO CERTIFICATE */
-
-function goToCertificate(){
-
-window.location.href="urkunde-generator.html";
-
-}
-
 </script>
 
 </body>
-
 </html>

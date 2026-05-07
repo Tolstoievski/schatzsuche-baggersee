@@ -1,69 +1,67 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Station 1</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Station 1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="overlay">
 
-<div class="header">Station 1</div>
+  <div class="header">Station 1 — Die steinernen Wächter</div>
 
-<div class="progress">
-<div class="progress-bar" style="width:20%"></div>
-</div>
+  <div class="progress"><div class="progress-bar" style="width:17%"></div></div>
 
-<div class="card">
+  <div class="nav-bar"><a href="index.html" class="back-link">← Zurück</a></div>
 
-<p class="story">
-Die Karte zeigt einen Ort,
-an dem alle Besucher ihre Reise beginnen.
-Findet diesen Ort!
-</p>
+  <div class="card">
 
-<div class="didyouknow">
-🧭 <b>Wusstest du, dass...</b><br><br>
-Biber können mit ihren Zähnen einen dünnen Baum in weniger als 30 Minuten fällen. Ihre Zähne wachsen ihr ganzes Leben lang und müssen durch das Nagen an Bäumen ständig abgenutzt werden.
-</div>
+    <p class="story">
+      🐸 Ihr steht auf dem Spielplatz am See.
+      Hier bewachen steinerne Frösche den Eingang zum Abenteuer.
+      Findet sie und stellt euch zwischen sie!
+    </p>
 
-<button onclick="checkLocation(48.709167,11.403333,60)">
-Standort prüfen
-</button>
+    <div class="didyouknow">
+      🧭 <b>Wusstet ihr, dass…</b><br><br>
+      Frösche können bis zum 20-Fachen ihrer eigenen Körperlänge springen?
+      Das wäre so, als würdet ihr mit einem einzigen Sprung über ein ganzes Fußballfeld fliegen!
+    </div>
 
-<p id="gpsResult"></p>
+    <button onclick="checkLocation(48.75083, 11.40028, 50)">📍 Standort prüfen</button>
+    <p id="gpsResult"></p>
 
-<div id="questionBox" class="hidden">
-<p><b>Wie viele Bänke stehen neben der Infotafel?</b></p>
-<input id="answer">
-<br>
-<button onclick="checkAnswer()">Antwort prüfen</button>
-</div>
+    <div id="questionBox" class="hidden">
+      <p><b>Wie viele Frösche bewachen den Spielplatz?</b></p>
+      <input id="answer" type="number" inputmode="numeric" placeholder="Zahl">
+      <br>
+      <button onclick="checkTextAnswer(['2'], 'punkt2.html', 1)">Antwort prüfen</button>
+      <div id="hintBox" class="hintbox hidden">
+        💡 <b>Hinweis:</b> Schaut euch am Eingang des Spielplatzes genau um —
+        die Frösche sind aus Stein und gar nicht so klein!
+      </div>
+    </div>
 
-<div id="nextClue" class="hidden success">
-Super!
-<a href="punkt2.html"><button>Weiter</button></a>
-</div>
+    <div id="nextClue" class="hidden">
+      <div class="next-box">
+        <p class="success">🎉 Super! Weiter geht's!</p>
+        <p class="distance-info">Folgt dem Uferweg Richtung Westen — nach 170 Metern erreicht ihr das Seehaus.</p>
+        <a href="punkt2.html"><button>Weiter zu Station 2 →</button></a>
+      </div>
+    </div>
 
-</div>
+  </div>
+
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+  </div>
+
 </div>
 
 <script src="game.js"></script>
-
-<script>
-function checkAnswer(){
-if(document.getElementById("answer").value.trim()=="3"){
-document.getElementById("nextClue").classList.remove("hidden");
-}else{
-alert("Leider falsch");
-}
-}
-</script>
-
+<script>checkAccess(0);</script>
 </body>
 </html>
-```

@@ -1,46 +1,53 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Der Schatz des Seehüters</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Der Schatz des Seehüters</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="overlay">
 
-<div class="header">
-🏴‍☠️ Der Schatz des Seehüters
+  <div class="header">🏴‍☠️ Der Schatz des Seehüters</div>
+
+  <div class="card">
+    <p class="story">
+      Willkommen, Abenteurer!<br><br>
+      Eine alte Karte führt euch zu einem geheimnisvollen Schatz am Baggersee.
+      Löst Rätsel, entdeckt verborgene Orte und findet den Schatz des Seehüters!<br><br>
+      📍 <strong>Start:</strong> Sucht den Wasserspielplatz.
+      Die Holzbrücken über dem Wasser zeigen euch den Weg.
+      In der warmen Jahreszeit folgt einfach dem Lachen der Kinder!
+    </p>
+    <a href="punkt1.html">
+      <button onclick="localStorage.setItem('seehueter_progress','0')">
+        🏴‍☠️ Abenteuer starten
+      </button>
+    </a>
+    <br>
+    <span class="reset-link" id="continueLink"></span>
+  </div>
+
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a> ·
+    <a href="datenschutz.html">Datenschutz</a>
+  </div>
+
 </div>
 
-<div class="card">
-
-<p class="story">
-
-Willkommen, Abenteurer!
-
-Eine alte Karte führt euch zu einem geheimnisvollen Schatz am See.
-
-Löst Rätsel, entdeckt Orte
-und findet den verborgenen Schatz.
-
-</p>
-
-<a href="punkt1.html">
-<button>Abenteuer starten</button>
-</a>
-
-</div>
-
-</div>
+<script>
+  /* Show continue option if there's existing progress */
+  const progress = parseInt(localStorage.getItem("seehueter_progress") || "0");
+  if (progress > 0 && progress < 7) {
+    const next = progress + 1;
+    const target = next <= 6 ? "punkt" + next + ".html" : "final.html";
+    document.getElementById("continueLink").innerHTML =
+      '🔄 <a href="' + target + '" class="reset-link">Abenteuer fortsetzen (Station ' + next + ')</a>';
+  }
+</script>
 
 </body>
 </html>

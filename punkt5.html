@@ -1,74 +1,69 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="style.css">
-<title>Station 5</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Station 5</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="overlay">
 
-<div class="header">Station 5</div>
+  <div class="header">Station 5 — Die große Kurve</div>
 
-<div class="progress">
-<div class="progress-bar" style="width:100%"></div>
-</div>
+  <div class="progress"><div class="progress-bar" style="width:83%"></div></div>
 
-<div class="card">
+  <div class="nav-bar"><a href="punkt4.html" class="back-link">← Station 4</a></div>
 
-<p class="story">
-Fast geschafft! Der Schatz ist ganz nah…
-</p>
+  <div class="card">
 
-<div class="didyouknow">
-🧭 <b>Wusstest du, dass...</b><br><br>
-Otter sind ausgezeichnete Schwimmer und können bis zu 5 Minuten unter Wasser bleiben?
-</div>
+    <p class="story">
+      🧭 Hier machen der See und der Weg eine scharfe Kurve!
+      Setzt euch kurz auf die schattige Bank und beobachtet, in welche Richtung der Weg weiterführt.
+    </p>
 
-<button onclick="checkLocation(48.7685,11.4295,35)">
-Standort prüfen
-</button>
+    <div class="didyouknow">
+      🧭 <b>Wusstet ihr, dass…</b><br><br>
+      Enten können manchmal mit einem offenen Auge schlafen?
+      So können sie sich gleichzeitig ausruhen und vor Raubtieren schützen.
+      Das nennt man „unihemisphärischen Schlaf"!
+    </div>
 
-<p id="gpsResult"></p>
+    <!-- TODO: Koordinaten durch Vor-Ort-Messung ersetzen -->
+    <button onclick="checkLocation(48.75000, 11.38950, 60)">📍 Standort prüfen</button>
+    <p id="gpsResult"></p>
 
-<div id="questionBox" class="hidden">
+    <div id="questionBox" class="hidden">
+      <p><b>In welche Himmelsrichtung führt der Weg nach der Kurve?</b></p>
+      <div class="answer-buttons">
+        <button class="answer-btn" onclick="checkButtonAnswer('Nordwesten', ['Nordwesten'], 'punkt6.html', 5)">↖️ Nordwesten</button>
+        <button class="answer-btn" onclick="checkButtonAnswer('Südosten', ['Nordwesten'], 'punkt6.html', 5)">↘️ Südosten</button>
+        <button class="answer-btn" onclick="checkButtonAnswer('Nordosten', ['Nordwesten'], 'punkt6.html', 5)">↗️ Nordosten</button>
+      </div>
+      <div id="hintBox" class="hintbox hidden">
+        💡 <b>Hinweis:</b> Steht an der Kurve und schaut, wohin der Weg weitergeht. Die Sonne geht im Westen unter — in welche Richtung zeigt der Weg?
+      </div>
+    </div>
 
-<p>Was hört man hier oft?</p>
+    <div id="nextClue" class="hidden">
+      <div class="next-box">
+        <p class="success">🎉 Genau richtig!</p>
+        <p class="distance-info">Erinnert ihr euch an das bunte Umkleidehaus? Nach 350 Metern findet ihr ein zweites! Genießt die Aussicht am kleinen Strand.</p>
+        <a href="punkt6.html"><button>Weiter zu Station 6 →</button></a>
+      </div>
+    </div>
 
-<input id="answer">
+  </div>
 
-<button onclick="checkAnswer()">Antwort prüfen</button>
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+  </div>
 
-</div>
-
-<div id="nextClue" class="hidden success">
-
-Sehr gut!
-
-<a href="final.html">
-<button>Zum Schatz</button>
-</a>
-
-</div>
-
-</div>
 </div>
 
 <script src="game.js"></script>
-
-<script>
-function checkAnswer(){
-if(document.getElementById("answer").value.toLowerCase()=="vögel"){
-document.getElementById("nextClue").classList.remove("hidden");
-}else{
-alert("Leider falsch");
-}
-}
-</script>
-
+<script>checkAccess(4);</script>
 </body>
 </html>
-```
