@@ -69,7 +69,6 @@
 <script src="game.js"></script>
 
 <script>
-/* Anti-cheat: must have completed all 6 stations */
 checkAccess(6);
 
 function checkFinalLocation() {
@@ -92,10 +91,9 @@ function checkFinalLocation() {
 
   navigator.geolocation.getCurrentPosition(
     function (pos) {
-      /* TODO: Koordinaten ggf. nach Vor-Ort-Messung anpassen */
       const distance = getDistance(
         pos.coords.latitude, pos.coords.longitude,
-        48.75286, 11.38642
+        48.75278, 11.38722
       );
 
       if (distance <= 60) {
