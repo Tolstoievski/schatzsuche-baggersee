@@ -47,19 +47,10 @@ function getDistance(lat1, lon1, lat2, lon2) {
   return R * c;
 }
 
-/* ---- TEST MODE: set to true to bypass GPS ---- */
-const TEST_MODE = true;
-
 /* ---- GPS CHECK with error handling ---- */
 
 function checkLocation(targetLat, targetLon, radius) {
   const gpsResult = document.getElementById("gpsResult");
-
-  if (TEST_MODE) {
-    gpsResult.innerHTML = "<span class='success'>✅ [TEST] Standort übersprungen.</span>";
-    document.getElementById("questionBox").classList.remove("hidden");
-    return;
-  }
 
   if (!navigator.geolocation) {
     gpsResult.innerHTML =

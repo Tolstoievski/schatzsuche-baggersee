@@ -6,63 +6,6 @@
   <title>Station 5</title>
   <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    .compass-box {
-      background: #f3e5ab;
-      border-radius: 15px;
-      padding: 20px;
-      margin: 15px 0;
-      border-left: 6px solid #ffb703;
-    }
-    .compass-circle {
-      width: 160px;
-      height: 160px;
-      border: 4px solid #5a3e1b;
-      border-radius: 50%;
-      margin: 15px auto;
-      position: relative;
-      background: #fdf6e3;
-    }
-    .compass-needle {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 4px;
-      height: 60px;
-      background: linear-gradient(to top, #ccc 50%, #c0392b 50%);
-      transform-origin: bottom center;
-      transform: translateX(-50%) translateY(-100%) rotate(0deg);
-      border-radius: 2px;
-      transition: transform 0.3s ease;
-    }
-    .compass-label {
-      position: absolute;
-      font-weight: bold;
-      font-size: 14px;
-      color: #5a3e1b;
-    }
-    .compass-label.n { top: 5px; left: 50%; transform: translateX(-50%); color: #c0392b; }
-    .compass-label.s { bottom: 5px; left: 50%; transform: translateX(-50%); }
-    .compass-label.e { right: 8px; top: 50%; transform: translateY(-50%); }
-    .compass-label.w { left: 8px; top: 50%; transform: translateY(-50%); }
-    .compass-heading { font-size: 16px; font-weight: bold; margin-top: 10px; }
-    .compass-btn {
-      padding: 12px 20px;
-      font-size: 16px;
-      border: 2px solid #5a3e1b;
-      border-radius: 12px;
-      background: #f3e5ab;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .compass-tips {
-      text-align: left;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-top: 12px;
-      color: #5a3e1b;
-    }
-  </style>
 </head>
 <body>
 
@@ -78,8 +21,7 @@
 
     <p class="story">
       🧭 Hier machen der See und der Weg eine scharfe Kurve!
-      Setzt euch kurz auf die schattige Bank und beobachtet,
-      in welche Richtung der Weg weiterführt.
+      Setzt euch kurz auf die schattige Bank und beobachtet, in welche Richtung der Weg weiterführt.
     </p>
 
     <div class="didyouknow">
@@ -89,36 +31,8 @@
       Das nennt man „unihemisphärischen Schlaf"!
     </div>
 
-    <!-- COMPASS HELPER -->
-    <div class="compass-box">
-      <b>🧭 Braucht ihr Hilfe mit den Himmelsrichtungen?</b>
-      <br>
-      <button class="compass-btn" onclick="startCompass()">Kompass öffnen</button>
-
-      <div id="compassWidget" class="hidden">
-        <div class="compass-circle">
-          <span class="compass-label n">N</span>
-          <span class="compass-label s">S</span>
-          <span class="compass-label e">O</span>
-          <span class="compass-label w">W</span>
-          <div class="compass-needle" id="needle"></div>
-        </div>
-        <div class="compass-heading" id="headingText">—</div>
-      </div>
-
-      <div id="compassFallback" class="hidden">
-        <div class="compass-tips">
-          📱 <b>Euer Telefon kann das auch:</b><br>
-          • <b>iPhone:</b> Öffnet die App „Kompass"<br>
-          • <b>Android:</b> Öffnet Google Maps — der blaue Punkt zeigt eure Blickrichtung<br><br>
-          ☀️ <b>Ohne Handy:</b> Die Sonne steht mittags im Süden.
-          Wenn ihr ihr den Rücken zuwendet, schaut ihr nach Norden.
-          Links ist Westen, rechts ist Osten.
-        </div>
-      </div>
-    </div>
-
-    <button onclick="checkLocation(48.74667, 11.39056, 50)">📍 Standort prüfen</button>
+    <!-- TODO: Koordinaten durch Vor-Ort-Messung ersetzen -->
+    <button onclick="checkLocation(48.75000, 11.38950, 60)">📍 Standort prüfen</button>
     <p id="gpsResult"></p>
 
     <div id="questionBox" class="hidden">
@@ -129,19 +43,14 @@
         <button class="answer-btn" onclick="checkButtonAnswer('Nordosten', ['Nordwesten'], 'punkt6.html', 5)">↗️ Nordosten</button>
       </div>
       <div id="hintBox" class="hintbox hidden">
-        💡 <b>Hinweis:</b> Nutzt den Kompass oben oder schaut, wo die Sonne steht.
-        Der Weg führt schräg zwischen Norden und Westen.
+        💡 <b>Hinweis:</b> Steht an der Kurve und schaut, wohin der Weg weitergeht. Die Sonne geht im Westen unter — in welche Richtung zeigt der Weg?
       </div>
     </div>
 
     <div id="nextClue" class="hidden">
       <div class="next-box">
         <p class="success">🎉 Genau richtig!</p>
-        <p class="distance-info">
-          Erinnert ihr euch an das bunte Umkleidehaus? Nach 350 Metern
-          (etwa 700 Kinderschritte) findet ihr ein zweites!
-          Genießt die Aussicht am kleinen Strand.
-        </p>
+        <p class="distance-info">Erinnert ihr euch an das bunte Umkleidehaus? Nach 350 Metern findet ihr ein zweites! Genießt die Aussicht am kleinen Strand.</p>
         <a href="punkt6.html"><button>Weiter zu Station 6 →</button></a>
       </div>
     </div>
@@ -155,54 +64,6 @@
 </div>
 
 <script src="game.js"></script>
-<script>
-checkAccess(4);
-
-function startCompass() {
-  /* iOS 13+ needs permission */
-  if (typeof DeviceOrientationEvent !== 'undefined' &&
-      typeof DeviceOrientationEvent.requestPermission === 'function') {
-    DeviceOrientationEvent.requestPermission()
-      .then(function(state) {
-        if (state === 'granted') {
-          activateCompass();
-        } else {
-          showFallback();
-        }
-      })
-      .catch(function() {
-        showFallback();
-      });
-  } else if ('DeviceOrientationEvent' in window) {
-    activateCompass();
-  } else {
-    showFallback();
-  }
-}
-
-function activateCompass() {
-  document.getElementById("compassWidget").classList.remove("hidden");
-  document.getElementById("compassFallback").classList.remove("hidden");
-
-  window.addEventListener('deviceorientation', function(e) {
-    /* iOS uses webkitCompassHeading, Android uses alpha */
-    let heading = e.webkitCompassHeading || (360 - (e.alpha || 0));
-    heading = Math.round(heading);
-
-    const needle = document.getElementById("needle");
-    needle.style.transform =
-      "translateX(-50%) translateY(-100%) rotate(" + heading + "deg)";
-
-    const dirs = ["N", "NO", "O", "SO", "S", "SW", "W", "NW"];
-    const idx = Math.round(heading / 45) % 8;
-    document.getElementById("headingText").textContent =
-      heading + "° — " + dirs[idx];
-  });
-}
-
-function showFallback() {
-  document.getElementById("compassFallback").classList.remove("hidden");
-}
-</script>
+<script>checkAccess(4);</script>
 </body>
 </html>

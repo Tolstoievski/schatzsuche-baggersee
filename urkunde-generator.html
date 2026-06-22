@@ -1,498 +1,150 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-
-<title>Ehrenurkunde</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
-
-<style>
-
-/* PAGE */
-
-body{
-margin:0;
-font-family:Georgia,serif;
-text-align:center;
-background:#2f1b0c;
-}
-
-/* FORM */
-
-.form-box{
-
-max-width:420px;
-margin:80px auto;
-
-background:white;
-
-padding:30px;
-
-border-radius:12px;
-
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
-
-}
-
-input{
-
-padding:12px;
-font-size:18px;
-
-border-radius:8px;
-border:1px solid #ccc;
-
-margin:10px;
-
-width:85%;
-
-}
-
-button{
-
-padding:14px 24px;
-
-font-size:16px;
-
-border:none;
-
-border-radius:10px;
-
-background:#ffb703;
-
-cursor:pointer;
-
-}
-
-/* CERTIFICATE */
-
-.certificate{
-
-width:1120px;
-height:790px;
-
-margin:40px auto;
-
-position:relative;
-
-padding:120px;
-
-box-sizing:border-box;
-
-background-image:url("pirate-adventure.jpg");
-background-size:cover;
-background-position:center;
-
-border:18px solid #caa64b;
-
-box-shadow:
-0 0 0 6px #e8d28a,
-0 0 35px rgba(0,0,0,0.6);
-
-display:none;
-
-}
-
-/* PERGAMENT */
-
-.overlay{
-
-position:absolute;
-inset:0;
-
-background:rgba(247,230,181,0.6);
-
-}
-
-/* CONTENT */
-
-.content{
-
-position:relative;
-z-index:2;
-
-}
-
-/* TITLE */
-
-.title{
-
-font-family:'Pirata One',cursive;
-
-font-size:72px;
-
-color:#080402;
-
-margin-bottom:10px;
-
-}
-
-/* SUBTITLE */
-
-.subtitle{
-
-font-size:34px;
-
-margin-bottom:30px;
-
-color:#140903;
-
-}
-
-/* NAME */
-
-.name{
-
-font-size:64px;
-
-font-weight:bold;
-
-margin:30px 0;
-
-color:#050202;
-
-}
-
-/* TEXT */
-
-.text{
-
-font-size:26px;
-
-line-height:1.8;
-
-color:#140903;
-
-}
-
-/* FOOTER */
-
-.footer{
-
-margin-top:40px;
-
-font-size:24px;
-
-color:#140903;
-
-}
-
-/* BUSOLA */
-
-.compass{
-
-position:absolute;
-
-bottom:10px;
-right:15px;
-
-width:170px;
-
-animation:spin 40s linear infinite;
-
-}
-
-@keyframes spin{
-
-0%{transform:rotate(0deg)}
-100%{transform:rotate(360deg)}
-
-}
-
-/* SIGILIU */
-
-.seal{
-
-position:absolute;
-
-bottom:35px;
-left:60px;
-
-width:220px;
-
-transform:rotate(-10deg);
-
-}
-
-/* CERT NUMBER */
-
-.certificate-number{
-
-position:absolute;
-
-top:25px;
-left:40px;
-
-font-size:20px;
-
-font-weight:bold;
-
-color:#050202;
-
-}
-
-/* PRINT BUTTON */
-
-.print-button{
-
-display:none;
-
-position:fixed;
-
-bottom:25px;
-right:25px;
-
-padding:16px 24px;
-
-font-size:16px;
-
-border:none;
-
-border-radius:10px;
-
-background:#ffb703;
-
-cursor:pointer;
-
-box-shadow:0 6px 14px rgba(0,0,0,0.3);
-
-}
-
-/* MOBILE VIEW */
-
-@media (max-width:900px){
-
-.certificate{
-
-width:95vw;
-height:auto;
-
-padding:40px 20px;
-
-}
-
-.title{
-font-size:42px;
-}
-
-.subtitle{
-font-size:22px;
-}
-
-.name{
-font-size:36px;
-}
-
-.text{
-font-size:18px;
-}
-
-.footer{
-font-size:18px;
-}
-
-.compass{
-width:90px;
-bottom:5px;
-right:5px;
-}
-
-.seal{
-width:120px;
-left:10px;
-bottom:10px;
-}
-
-}
-
-/* PRINT MODE */
-
-@media print{
-
-body{
-background:white;
-}
-
-.form-box{
-display:none;
-}
-
-.print-button{
-display:none;
-}
-
-.certificate{
-
-margin:0;
-box-shadow:none;
-
-}
-
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eure Ehrenurkunde</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .cert-form input[type=text],
+    .cert-form input[type=email]{
+      width:90%;padding:12px;font-size:18px;border-radius:8px;
+      border:1px solid #ccc;margin:8px 0;font-family:inherit;
+    }
+    .cert-form label.check{
+      display:flex;gap:12px;align-items:flex-start;text-align:left;
+      background:#fff7e6;border:2px solid #e8d28a;border-radius:12px;
+      padding:14px;margin:12px 0;cursor:pointer;
+    }
+    .cert-form input[type=checkbox]{
+      margin-top:4px;width:22px;height:22px;flex:0 0 auto;cursor:pointer;
+    }
+    .check-title{font-weight:bold;display:block;}
+    .check-sub{font-size:14px;color:#5a4a2a;display:block;margin-top:4px;line-height:1.4;}
+    .consent{font-size:13px;color:#5a4a2a;text-align:left;margin:14px 2px 4px;line-height:1.5;}
+    .consent a{color:#b5651d;}
+  </style>
 </head>
-
 <body>
 
-<div class="form-box" id="formBox">
+<div class="overlay">
 
-<h2>🏴‍☠️ Eure Ehrenurkunde</h2>
+  <div class="header">🏴‍☠️ Eure Ehrenurkunde</div>
 
-<p>
-Gebt den Namen des Kindes ein,  
-um eure persönliche Urkunde zu erhalten.
-</p>
+  <div class="nav-bar"><a href="final.html" class="back-link">← Zurück zum Schatz</a></div>
 
-<form id="certificateForm">
+  <div class="card">
 
-<input type="text" id="childname" placeholder="Name des Kindes" required>
+    <p class="story" id="introStory">
+      Ihr habt es geschafft – der Schatz des Seehüters ist gehoben! 🏆<br><br>
+      Jetzt fehlt nur noch eines: eure ganz persönliche Ehrenurkunde.
+      Tragt den Namen des Kindes ein, und der Seehüter schickt sie euch per E-Mail.
+    </p>
 
-<br>
+    <form id="certForm" class="cert-form">
 
-<input type="email" id="email" placeholder="E-Mail der Eltern" required>
+      <input type="text" id="childname" placeholder="Name des Kindes" maxlength="60" required>
+      <input type="email" id="email" placeholder="E-Mail der Eltern" maxlength="120" required>
 
-<br><br>
+      <label class="check">
+        <input type="checkbox" id="wantCert" checked>
+        <span>
+          <span class="check-title">📜 Schickt mir die Urkunde per E-Mail.</span>
+          <span class="check-sub">Ihr bekommt einen Link zu eurer persönlichen Urkunde zum
+          Speichern oder Ausdrucken. Eure Adresse wird dafür nicht in einer Liste gespeichert.</span>
+        </span>
+      </label>
 
-<button type="submit">
-Urkunde erstellen
-</button>
+      <label class="check">
+        <input type="checkbox" id="wantNews">
+        <span>
+          <span class="check-title">🧭 Ja, ich möchte den Familien-Newsletter von AbenteuerBayern.</span>
+          <span class="check-sub">Ausflugstipps, Kinderabenteuer und Entdeckertouren in Bayern –
+          ein paar Mal im Jahr, kostenlos, jederzeit mit einem Klick abbestellbar.</span>
+        </span>
+      </label>
 
-</form>
+      <p class="consent">
+        Mit dem Absenden bestätige ich als Elternteil mein Einverständnis. Den Newsletter
+        bestätige ich anschließend noch einmal per Klick in einer separaten E-Mail
+        (Double-Opt-In). Wie wir mit euren Daten umgehen, steht in der
+        <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a>.
+      </p>
 
-</div>
+      <button type="submit" id="submitBtn">🏴‍☠️ Urkunde anfordern</button>
 
-<div class="certificate" id="certificate">
+    </form>
 
-<div class="overlay"></div>
+    <div id="result" class="hidden"></div>
 
-<div class="certificate-number" id="certNumber"></div>
+  </div>
 
-<img src="compass.png" class="compass">
-<img src="sigiliu.png" class="seal">
-
-<div class="content">
-
-<div class="title">
-GEHEIME EHRENURKUNDE
-</div>
-
-<div class="subtitle">
-Orden der Hüter des Sees
-</div>
-
-<div class="text">
-Mit Mut und Entdeckergeist hat
-</div>
-
-<div class="name" id="childName">
-Name
-</div>
-
-<div class="text">
-alle Prüfungen bestanden  
-und den verborgenen Schatz entdeckt.
-</div>
-
-<div class="footer">
-
-Verliehen am: <span id="date"></span>
-
-<br><br>
-
-Im Namen des Seehüters
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+  </div>
 
 </div>
-
-</div>
-
-</div>
-
-<button class="print-button" id="printBtn" onclick="printCertificate()">
-📄 Urkunde als PDF speichern
-</button>
 
 <script>
+  /* ===== TODO: Nach dem Cloudflare-Deploy die echte Worker-URL eintragen ===== */
+  const WORKER_URL = "https://DEINE-WORKER-URL.workers.dev";
 
-/* DATE */
+  const form = document.getElementById("certForm");
+  const result = document.getElementById("result");
 
-const today=new Date();
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-document.getElementById("date").innerText=
-today.toLocaleDateString("de-DE");
+    const childName = document.getElementById("childname").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const wantsCertificate = document.getElementById("wantCert").checked;
+    const wantsNewsletter = document.getElementById("wantNews").checked;
+    const btn = document.getElementById("submitBtn");
 
-/* CERTIFICATE NUMBER */
+    if (!wantsCertificate && !wantsNewsletter) {
+      showMsg("Bitte wählt mindestens eine Option aus. 🙂", false);
+      return;
+    }
 
-let counter=localStorage.getItem("certificateCounter");
+    btn.disabled = true;
+    btn.innerText = "Wird gesendet…";
 
-if(!counter){
-counter=1;
-}else{
-counter=parseInt(counter)+1;
-}
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ childName, email, wantsCertificate, wantsNewsletter })
+      });
 
-localStorage.setItem("certificateCounter",counter);
+      if (!res.ok) throw new Error("Serverfehler");
 
-const year=today.getFullYear();
-const padded=String(counter).padStart(3,'0');
+      form.style.display = "none";
+      document.getElementById("introStory").style.display = "none";
 
-document.getElementById("certNumber").innerText=
-"Zertifikat Nr: SD-"+year+"-"+padded;
+      let msg = "🎉 Geschafft!<br><br>";
+      if (wantsCertificate) {
+        msg += "📬 Eure Urkunde ist unterwegs – schaut in euer E-Mail-Postfach (auch im Spam-Ordner).<br><br>";
+      }
+      if (wantsNewsletter) {
+        msg += "🧭 Für den Newsletter haben wir euch eine Bestätigungs-E-Mail geschickt. " +
+               "Bitte klickt dort einmal auf „Bestätigen“ – dann seid ihr dabei!";
+      }
+      showMsg(msg, true);
 
-/* FORM */
+    } catch (err) {
+      btn.disabled = false;
+      btn.innerText = "🏴‍☠️ Urkunde anfordern";
+      showMsg("⚠️ Da ist etwas schiefgelaufen. Bitte versucht es gleich noch einmal.", false);
+    }
+  });
 
-document.getElementById("certificateForm")
-.addEventListener("submit", async function(e){
-
-e.preventDefault();
-
-const name=document.getElementById("childname").value;
-const email=document.getElementById("email").value;
-
-/* SEND EMAIL */
-
-await fetch("https://formspree.io/f/mojnojer",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-childname:name,
-email:email
-})
-
-});
-
-/* SHOW CERTIFICATE */
-
-document.getElementById("formBox").style.display="none";
-
-document.getElementById("childName").innerText=name;
-
-document.getElementById("certificate").style.display="block";
-
-document.getElementById("printBtn").style.display="block";
-
-});
-
-/* PRINT */
-
-function printCertificate(){
-
-window.print();
-
-}
-
+  function showMsg(html, success) {
+    result.classList.remove("hidden");
+    result.innerHTML =
+      '<div class="next-box"><p class="' + (success ? "success" : "error") + '">' + html + '</p></div>';
+  }
 </script>
 
 </body>
-
 </html>

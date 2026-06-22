@@ -21,8 +21,7 @@
 
     <p class="story">
       🎨 Vor euch steht ein bunt bemaltes Umkleidehaus.
-      Auf den Wänden und sogar im Inneren haben sich tropische Gäste versteckt.
-      Schaut genau hin — innen und außen!
+      Schaut es euch genau an — die Bilder darauf verraten euch etwas über den Baggersee!
     </p>
 
     <div class="didyouknow">
@@ -35,24 +34,21 @@
     <p id="gpsResult"></p>
 
     <div id="questionBox" class="hidden">
-      <p><b>Wie viele Palmen sind insgesamt auf dem Umkleidehaus gemalt — außen und innen?</b></p>
-      <input id="answer" type="number" inputmode="numeric" placeholder="Zahl">
-      <br>
-      <!-- TODO: Korrekte Palmenzahl einsetzen (aktuell Platzhalter 5) -->
-      <button onclick="checkTextAnswer(['5'], 'punkt4.html', 3)">Antwort prüfen</button>
+      <p><b>Was ist neben dem Schriftzug „Baggersee" auf das Umkleidehaus gemalt?</b></p>
+      <div class="answer-buttons">
+        <button class="answer-btn" onclick="checkButtonAnswer('Blumen', ['Blumen','Palmen'], 'punkt4.html', 3)">🌸 Blumen</button>
+        <button class="answer-btn" onclick="checkButtonAnswer('Palmen', ['Blumen','Palmen'], 'punkt4.html', 3)">🌴 Palmen</button>
+        <button class="answer-btn" onclick="checkButtonAnswer('Anker', ['Blumen','Palmen'], 'punkt4.html', 3)">⚓ Anker</button>
+      </div>
       <div id="hintBox" class="hintbox hidden">
-        💡 <b>Hinweis:</b> Vergesst nicht, auch die Innenseiten des Umkleidehauses abzusuchen!
-        Nicht nur außen sind Palmen versteckt.
+        💡 <b>Hinweis:</b> Schaut euch die großen bunten Bilder auf dem Umkleidehaus genau an — was wächst in warmen Ländern?
       </div>
     </div>
 
     <div id="nextClue" class="hidden">
       <div class="next-box">
-        <p class="success">🎉 Fantastisch! Ihr habt alle Palmen gefunden!</p>
-        <p class="distance-info">
-          Steuert Richtung Südwesten. Nach 250 Metern (etwa 500 Kinderschritte)
-          erreicht ihr ein geheimnisvolles rotes Haus.
-        </p>
+        <p class="success">🎉 Fantastisch!</p>
+        <p class="distance-info">Steuert Richtung Südwesten. Nach 250 Metern erreicht ihr ein rotes Haus. Dort könnt ihr eine Pause beim Beachvolleyball einlegen!</p>
         <a href="punkt4.html"><button>Weiter zu Station 4 →</button></a>
       </div>
     </div>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Ehrenurkunde</title>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Georgia,serif;text-align:center;background:#2f1b0c;}
+
+.intro{color:#f7e6b5;font-family:'Pirata One',cursive;font-size:26px;margin:30px 20px 0;line-height:1.4;}
+
+.certificate{
+  width:1120px;height:790px;margin:30px auto;position:relative;padding:120px;
+  box-sizing:border-box;background-image:url("pirate-adventure.jpg");
+  background-size:cover;background-position:center;border:18px solid #caa64b;
+  box-shadow:0 0 0 6px #e8d28a,0 0 35px rgba(0,0,0,0.6);display:none;
+}
+.cert-overlay{position:absolute;inset:0;background:rgba(247,230,181,0.6);}
+.content{position:relative;z-index:2;}
+.title{font-family:'Pirata One',cursive;font-size:72px;color:#080402;margin-bottom:10px;}
+.subtitle{font-size:34px;margin-bottom:30px;color:#140903;}
+.name{font-size:64px;font-weight:bold;margin:30px 0;color:#050202;}
+.text{font-size:26px;line-height:1.8;color:#140903;}
+.footer{margin-top:40px;font-size:24px;color:#140903;}
+.compass{position:absolute;bottom:10px;right:15px;width:170px;animation:spin 40s linear infinite;}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.seal{position:absolute;bottom:35px;left:60px;width:220px;transform:rotate(-10deg);}
+.certificate-number{position:absolute;top:25px;left:40px;font-size:20px;font-weight:bold;color:#050202;}
+
+.print-button{
+  display:none;position:fixed;bottom:25px;right:25px;padding:16px 24px;font-size:16px;
+  border:none;border-radius:10px;background:#ffb703;cursor:pointer;
+  box-shadow:0 6px 14px rgba(0,0,0,0.3);
+}
+.fallback{color:#f7e6b5;font-family:Georgia,serif;font-size:20px;margin:80px 24px;line-height:1.7;}
+
+@media (max-width:900px){
+  .certificate{width:95vw;height:auto;padding:40px 20px;}
+  .title{font-size:42px;}
+  .subtitle{font-size:22px;}
+  .name{font-size:36px;}
+  .text{font-size:18px;}
+  .footer{font-size:18px;}
+  .compass{width:90px;bottom:5px;right:5px;}
+  .seal{width:120px;left:10px;bottom:10px;}
+}
+
+@media print{
+  body{background:white;}
+  .print-button{display:none;}
+  .intro{display:none;}
+  .certificate{margin:0;box-shadow:none;}
+}
+</style>
+</head>
+<body>
+
+<p class="intro" id="intro"></p>
+
+<div class="certificate" id="certificate">
+  <div class="cert-overlay"></div>
+  <div class="certificate-number" id="certNumber"></div>
+
+  <img src="compass.png" class="compass" alt="">
+  <img src="sigiliu.png" class="seal" alt="">
+
+  <div class="content">
+    <div class="title">GEHEIME EHRENURKUNDE</div>
+    <div class="subtitle">Orden der H&uuml;ter des Sees</div>
+    <div class="text">Mit Mut und Entdeckergeist hat</div>
+    <div class="name" id="childName">Name</div>
+    <div class="text">alle Pr&uuml;fungen bestanden und den verborgenen Schatz entdeckt.</div>
+    <div class="footer">
+      Verliehen am: <span id="date"></span>
+      <br><br>
+      Im Namen des Seeh&uuml;ters
+    </div>
+  </div>
+</div>
+
+<button class="print-button" id="printBtn" onclick="window.print()">&#128196; Urkunde als PDF speichern</button>
+
+<p class="fallback" id="fallback" style="display:none;">
+  &#127988;&#65039; Diese Urkunde wird &uuml;ber den Link in eurer E-Mail ge&ouml;ffnet.<br>
+  Schaut in euer Postfach &ndash; dort wartet eure pers&ouml;nliche Urkunde!
+</p>
+
+<script>
+  /* Die Urkunde wird aus dem Link bef&uuml;llt: ?name=...&nr=... */
+  const params = new URLSearchParams(window.location.search);
+  const name = (params.get("name") || "").trim();
+  const nr = (params.get("nr") || "").trim();
+
+  const today = new Date();
+  document.getElementById("date").innerText = today.toLocaleDateString("de-DE");
+
+  if (name) {
+    document.getElementById("childName").innerText = name;       // innerText = sicher gegen Code-Einschleusung
+    document.getElementById("certNumber").innerText = nr ? ("Zertifikat Nr: " + nr) : "";
+    document.getElementById("intro").innerText =
+      "Tippt unten auf den Button, um die Urkunde zu speichern oder auszudrucken.";
+    document.getElementById("certificate").style.display = "block";
+    document.getElementById("printBtn").style.display = "block";
+  } else {
+    document.getElementById("fallback").style.display = "block";
+  }
+</script>
+
+</body>
+</html>
