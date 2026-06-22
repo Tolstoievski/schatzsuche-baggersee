@@ -2,6 +2,11 @@
    DER SCHATZ DES SEEHÜTERS — Game Engine
    ============================================= */
 
+/* ---- TEST MODE ----
+   true  = „Standort prüfen" wird sofort akzeptiert (zum Testen ohne vor Ort zu sein)
+   false = echte GPS-Prüfung (VOR DEM DEPLOYMENT auf false setzen!) */
+const TEST_MODE = true;
+
 /* ---- PROGRESS / ANTI-CHEAT ---- */
 
 function getProgress() {
@@ -51,6 +56,14 @@ function getDistance(lat1, lon1, lat2, lon2) {
 
 function checkLocation(targetLat, targetLon, radius) {
   const gpsResult = document.getElementById("gpsResult");
+
+  /* --- TEST MODE: GPS überspringen --- */
+  if (TEST_MODE) {
+    gpsResult.innerHTML =
+      "<span class='success'>✅ [TEST] Standort akzeptiert.</span>";
+    document.getElementById("questionBox").classList.remove("hidden");
+    return;
+  }
 
   if (!navigator.geolocation) {
     gpsResult.innerHTML =
