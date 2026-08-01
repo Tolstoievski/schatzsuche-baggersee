@@ -75,16 +75,6 @@ checkAccess(6);
 function checkFinalLocation() {
   const gpsResult = document.getElementById("gpsResult");
 
-  /* --- TEST MODE: GPS überspringen (Flag liegt in game.js) --- */
-  if (typeof TEST_MODE !== "undefined" && TEST_MODE) {
-    gpsResult.innerHTML =
-      "<span class='success'>✅ [TEST] Ihr habt den Schatz gefunden!</span>";
-    document.getElementById("treasureArea").classList.remove("hidden");
-    setProgress(7);
-    launchConfetti();
-    return;
-  }
-
   if (!navigator.geolocation) {
     gpsResult.innerHTML = "<span class='error'>⚠️ Standortabfrage nicht unterstützt.</span>";
     return;

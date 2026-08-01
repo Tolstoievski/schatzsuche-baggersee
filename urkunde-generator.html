@@ -57,13 +57,12 @@
       </label>
 
       <label class="check">
-        <input type="checkbox" id="wantNews">
-        <span>
-          <span class="check-title">🧭 Ja, ich möchte den Familien-Newsletter von AbenteuerBayern.</span>
-          <span class="check-sub">Ausflugstipps, Kinderabenteuer und Entdeckertouren in Bayern –
-          ein paar Mal im Jahr, kostenlos, jederzeit mit einem Klick abbestellbar.</span>
-        </span>
-      </label>
+  <input type="checkbox" id="wantNews">
+  <span>
+    <span class="check-title">🧭 Ja, ich möchte den kostenlosen Familien-Newsletter von AbenteuerBayern (Abenteuer Bayern UG) erhalten.</span>
+    <span class="check-sub">Ausflugstipps, Kinderabenteuer und Entdeckertouren in Bayern — ca. einmal im Monat. Abmeldung jederzeit über den Link in jeder E-Mail. Mehr in der <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a>.</span>
+  </span>
+</label>
 
       <p class="consent">
         Mit dem Absenden bestätige ich als Elternteil mein Einverständnis. Den Newsletter
@@ -88,7 +87,7 @@
 
 <script>
   /* ===== TODO: Nach dem Cloudflare-Deploy die echte Worker-URL eintragen ===== */
-  const WORKER_URL = "https://DEINE-WORKER-URL.workers.dev";
+  const WORKER_URL = "https://seehueter-brevo.quiet-star-1382.workers.dev";
 
   const form = document.getElementById("certForm");
   const result = document.getElementById("result");

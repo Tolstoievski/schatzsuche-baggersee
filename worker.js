@@ -130,7 +130,12 @@ async function sendDoubleOptIn(env, email) {
       email,
       includeListIds: [parseInt(env.BREVO_LIST_ID, 10)],
       templateId: parseInt(env.BREVO_DOI_TEMPLATE_ID, 10),
-      redirectionUrl: env.DOI_REDIRECT_URL
+      redirectionUrl: env.DOI_REDIRECT_URL,
+      attributes: {
+        SIGNUP_SOURCE: "baggersee-schatzsuche",
+        CONSENT_TEXT_VERSION: "2026-05-v1",
+        LANGUAGE: "DE"
+      }
     })
   });
 
