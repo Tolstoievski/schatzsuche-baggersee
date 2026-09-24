@@ -48,7 +48,7 @@ function getDistance(lat1, lon1, lat2, lon2) {
 }
 
 /* ---- TEST MODE: set to true to bypass GPS ---- */
-const TEST_MODE = true;
+const TEST_MODE = false;
 
 /* ---- GPS CHECK with error handling ---- */
 
