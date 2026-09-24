@@ -72,8 +72,16 @@
 /* Anti-cheat: must have completed all 6 stations */
 checkAccess(6);
 
-function checkFinalLocation() {
+function checkFinalLocation(targetLat, targetLon, radius) {
   const gpsResult = document.getElementById("gpsResult");
+
+  if (typeof TEST_MODE !== 'undefined' && TEST_MODE) {
+    gpsResult.innerHTML = "<span class='success'>✅ [TEST] Standort übersprungen.</span>";
+    document.getElementById("treasureArea").classList.remove("hidden");
+    setProgress(7);
+    launchConfetti();
+    return;
+  }
 
   if (!navigator.geolocation) {
     gpsResult.innerHTML = "<span class='error'>⚠️ Standortabfrage nicht unterstützt.</span>";
@@ -84,13 +92,12 @@ function checkFinalLocation() {
 
   navigator.geolocation.getCurrentPosition(
     function (pos) {
-      /* TODO: Koordinaten ggf. nach Vor-Ort-Messung anpassen */
       const distance = getDistance(
         pos.coords.latitude, pos.coords.longitude,
-        48.75286, 11.38642
+        targetLat, targetLon
       );
 
-      if (distance <= 60) {
+      if (distance <= radius) {
         gpsResult.innerHTML =
           "<span class='success'>✅ Ihr habt den Schatz gefunden!</span>";
         document.getElementById("treasureArea").classList.remove("hidden");
