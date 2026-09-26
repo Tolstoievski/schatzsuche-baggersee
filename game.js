@@ -148,7 +148,7 @@ function checkLocation(targetLat, targetLon, radius) {
     if (currentWatchId !== null) {
       stopWatching();
       gpsResult.innerHTML =
-        "<span class='error'>⏱️ Das dauert gerade länger. Drückt einfach noch einmal auf „Standort prüfen".</span>";
+        "<span class='error'>⏱️ Das dauert gerade länger. Drückt einfach noch einmal auf „Standort prüfen“.</span>";
     }
   }, 25000);
 }
