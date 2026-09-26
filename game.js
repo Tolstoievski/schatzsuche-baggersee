@@ -48,9 +48,23 @@ function getDistance(lat1, lon1, lat2, lon2) {
 }
 
 /* ---- TEST MODE: set to true to bypass GPS ---- */
-const TEST_MODE = false;
+const TEST_MODE = true;
 
 /* ---- GPS CHECK with error handling ---- */
+
+let currentWatchId = null;
+let watchTimeoutId = null;
+
+function stopWatching() {
+  if (currentWatchId !== null) {
+    navigator.geolocation.clearWatch(currentWatchId);
+    currentWatchId = null;
+  }
+  if (watchTimeoutId !== null) {
+    clearTimeout(watchTimeoutId);
+    watchTimeoutId = null;
+  }
+}
 
 function checkLocation(targetLat, targetLon, radius) {
   const gpsResult = document.getElementById("gpsResult");
@@ -67,9 +81,12 @@ function checkLocation(targetLat, targetLon, radius) {
     return;
   }
 
-  gpsResult.innerHTML = "<span class='checking'>📡 Standort wird geprüft…</span>";
+  /* Falls schon eine Standortverfolgung läuft, zuerst stoppen */
+  stopWatching();
 
-  navigator.geolocation.getCurrentPosition(
+  gpsResult.innerHTML = "<span class='checking'>📡 Standort wird ermittelt … bleibt kurz ruhig stehen.</span>";
+
+  currentWatchId = navigator.geolocation.watchPosition(
     function (pos) {
       const distance = getDistance(
         pos.coords.latitude,
@@ -77,20 +94,30 @@ function checkLocation(targetLat, targetLon, radius) {
         targetLat,
         targetLon
       );
+      const accuracy = pos.coords.accuracy;
 
       if (distance <= radius) {
+        stopWatching();
         gpsResult.innerHTML =
           "<span class='success'>✅ Perfekt! Ihr seid am richtigen Ort.</span>";
         document.getElementById("questionBox").classList.remove("hidden");
-      } else {
-        const hint = distance > 500
-          ? "Ihr seid noch weit entfernt — schaut auf die Hinweise!"
-          : distance > 100
-            ? "Schon in der Nähe — schaut euch weiter um!"
-            : "Fast da! Nur noch ein paar Schritte!";
-        gpsResult.innerHTML =
-          "<span class='error'>📍 " + hint + " (" + Math.round(distance) + " m entfernt)</span>";
+        return;
       }
+
+      if (accuracy && accuracy > radius) {
+        gpsResult.innerHTML =
+          "<span class='checking'>📡 Die GPS-Genauigkeit verbessert sich noch (±" +
+          Math.round(accuracy) + " m) — einen Moment Geduld …</span>";
+        return;
+      }
+
+      const hint = distance > 500
+        ? "Ihr seid noch weit entfernt — schaut auf die Hinweise!"
+        : distance > 100
+          ? "Schon in der Nähe — schaut euch weiter um!"
+          : "Fast da! Nur noch ein paar Schritte!";
+      gpsResult.innerHTML =
+        "<span class='error'>📍 " + hint + " (" + Math.round(distance) + " m entfernt)</span>";
     },
     function (err) {
       let msg;
@@ -111,10 +138,19 @@ function checkLocation(targetLat, targetLon, radius) {
     },
     {
       enableHighAccuracy: true,
-      timeout: 15000,
+      timeout: 20000,
       maximumAge: 0
     }
   );
+
+  /* Nach 25 Sekunden automatisch stoppen, falls noch nichts gefunden wurde */
+  watchTimeoutId = setTimeout(function () {
+    if (currentWatchId !== null) {
+      stopWatching();
+      gpsResult.innerHTML =
+        "<span class='error'>⏱️ Das dauert gerade länger. Drückt einfach noch einmal auf „Standort prüfen".</span>";
+    }
+  }, 25000);
 }
 
 /* ---- CHECK TEXT/NUMBER ANSWER ---- */

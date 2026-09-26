@@ -23,7 +23,8 @@
       Prüft euren Standort, um den Schatz zu öffnen.
     </p>
 
-    <button onclick="checkFinalLocation(48.752778, 11.387222, 60)">📍 Standort prüfen</button>
+    <button onclick="checkFinalLocation(48.752778, 11.387222, 80)">📍 Standort prüfen</button>
+    <p class="gps-hint">⏳ Der Standort braucht nach dem Stillstehen ein paar Sekunden, bis er sich aktualisiert. Bleibt einfach kurz ruhig stehen.</p>
     <p id="gpsResult"></p>
 
     <div id="treasureArea" class="hidden">
@@ -76,6 +77,20 @@
 /* Anti-cheat: must have completed all 6 stations */
 checkAccess(6);
 
+let finalWatchId = null;
+let finalWatchTimeoutId = null;
+
+function stopFinalWatching() {
+  if (finalWatchId !== null) {
+    navigator.geolocation.clearWatch(finalWatchId);
+    finalWatchId = null;
+  }
+  if (finalWatchTimeoutId !== null) {
+    clearTimeout(finalWatchTimeoutId);
+    finalWatchTimeoutId = null;
+  }
+}
+
 function checkFinalLocation(targetLat, targetLon, radius) {
   const gpsResult = document.getElementById("gpsResult");
 
@@ -92,37 +107,57 @@ function checkFinalLocation(targetLat, targetLon, radius) {
     return;
   }
 
-  gpsResult.innerHTML = "<span class='checking'>📡 Standort wird geprüft…</span>";
+  stopFinalWatching();
 
-  navigator.geolocation.getCurrentPosition(
+  gpsResult.innerHTML = "<span class='checking'>📡 Standort wird ermittelt … bleibt kurz ruhig stehen.</span>";
+
+  finalWatchId = navigator.geolocation.watchPosition(
     function (pos) {
       const distance = getDistance(
         pos.coords.latitude, pos.coords.longitude,
         targetLat, targetLon
       );
+      const accuracy = pos.coords.accuracy;
 
       if (distance <= radius) {
+        stopFinalWatching();
         gpsResult.innerHTML =
           "<span class='success'>✅ Ihr habt den Schatz gefunden!</span>";
         document.getElementById("treasureArea").classList.remove("hidden");
         setProgress(7);
         launchConfetti();
-      } else {
-        const hint = distance > 500
-          ? "Ihr seid noch weit entfernt!"
-          : distance > 100
-            ? "Schon in der Nähe — sucht die Kreuzung!"
-            : "Fast da! Nur noch ein paar Schritte!";
-        gpsResult.innerHTML =
-          "<span class='error'>📍 " + hint + " (" + Math.round(distance) + " m)</span>";
+        return;
       }
+
+      if (accuracy && accuracy > radius) {
+        gpsResult.innerHTML =
+          "<span class='checking'>📡 Die GPS-Genauigkeit verbessert sich noch (±" +
+          Math.round(accuracy) + " m) — einen Moment Geduld …</span>";
+        return;
+      }
+
+      const hint = distance > 500
+        ? "Ihr seid noch weit entfernt!"
+        : distance > 100
+          ? "Schon in der Nähe — sucht die Kreuzung!"
+          : "Fast da! Nur noch ein paar Schritte!";
+      gpsResult.innerHTML =
+        "<span class='error'>📍 " + hint + " (" + Math.round(distance) + " m)</span>";
     },
     function () {
       gpsResult.innerHTML =
         "<span class='error'>⚠️ Standort konnte nicht ermittelt werden. Versucht es erneut.</span>";
     },
-    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 }
   );
+
+  finalWatchTimeoutId = setTimeout(function () {
+    if (finalWatchId !== null) {
+      stopFinalWatching();
+      gpsResult.innerHTML =
+        "<span class='error'>⏱️ Das dauert gerade länger. Drückt einfach noch einmal auf „Standort prüfen".</span>";
+    }
+  }, 25000);
 }
 
 function openChest() {

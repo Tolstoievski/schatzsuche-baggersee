@@ -204,6 +204,14 @@ input {
   margin-top: 8px;
 }
 
+/* GPS PATIENCE HINT */
+.gps-hint {
+  font-size: 13px;
+  color: #8e6b00;
+  margin-top: 6px;
+  font-style: italic;
+}
+
 /* FOOTER */
 .footer-links {
   margin-top: auto;
